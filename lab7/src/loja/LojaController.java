@@ -2,14 +2,9 @@
 package loja;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import jogos.Jogo;
-import jogos.Luta;
-import jogos.Plataforma;
-import jogos.Rpg;
-import usuarios.Usuario;
-import usuarios.UsuarioVeterano;
 import enumerations.ExperienciaUsuario;
 import enumerations.Jogabilidade;
 import enumerations.TipoDeJogo;
@@ -19,7 +14,11 @@ import exceptions.NumeroInvalidoException;
 import exceptions.ObjetoinvalidoException;
 import exceptions.SteamException;
 import exceptions.StringException;
+import factory.JogoFactory;
 import factory.UsuarioFactory;
+import jogos.Jogo;
+import usuarios.Usuario;
+import usuarios.UsuarioVeterano;
 
 /**
  * 
@@ -30,6 +29,7 @@ public class LojaController {
 
 	private Map<String,Usuario> usuarios;
 	private UsuarioFactory fabricaUsuario;
+	private JogoFactory fabricaJogo;
 
 	/**
 	 * Construtor da loja
@@ -38,6 +38,7 @@ public class LojaController {
 
 		this.usuarios = new HashMap<String,Usuario>();
 		this.fabricaUsuario = new UsuarioFactory();
+		this.fabricaJogo = new JogoFactory();
 	}
 
 	/**
@@ -49,15 +50,15 @@ public class LojaController {
 	 */
 	public boolean addUsuario(String nome, String login, ExperienciaUsuario experiencia)throws SteamException{
 		Usuario usuarioNoob = criaUsuario(nome, login, experiencia);
-		
+
 		if(! containUsuario(usuarioNoob)){
 			usuarios.put(usuarioNoob.getLogin(), usuarioNoob);
 			return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	private Usuario criaUsuario(String nomeUsuario, String loginUsuario, ExperienciaUsuario experiencia)throws SteamException{
 		return fabricaUsuario.criaUsuario(nomeUsuario, loginUsuario, experiencia);
 	}
@@ -98,7 +99,7 @@ public class LojaController {
 		}
 	}
 
-	
+
 	/**
 	 * Esse metodo adiciona uma jogabilidade a um determinado jogo
 	 * 
@@ -157,83 +158,14 @@ public class LojaController {
 	 * @param nomeJogo - recebe o nome do jogo
 	 * @param preco - receb o preco do jogo
 	 * @param tipo - receb o tipo do jogo
+	 * @param jogablidades - recebe uma lista de jogabiliades a ser adicionada
 	 * @return - retorna o jogo criado
 	 * @throws DadosInvalidosException - gera uma exception caso as entradas sejam invalidas
 	 */
-	private Jogo criaJogo(String nomeJogo, double preco, TipoDeJogo tipo) throws DadosInvalidosException {
-
-		switch(tipo){
-		case RPG:
-			Jogo novoJogoRpg = criaJogoRpg(nomeJogo, preco);
-			return novoJogoRpg;
-
-		case PLATAFORMA:
-			Jogo novoJogoPlataforma = criaJogoPlataforma(nomeJogo, preco);
-			return novoJogoPlataforma;
-
-		case LUTA:
-			Jogo novoJogoLuta = criaJogoLuta(nomeJogo, preco);
-			return novoJogoLuta;
-
-		default:
-			throw new StringException("Tipo de jogo inexistente!");
-		}
+	private Jogo criaJogo(String nomeJogo, double preco, TipoDeJogo tipo, List<Jogabilidade> jogabilidades) throws SteamException {
+		return fabricaJogo.criaJogo(nomeJogo, preco, tipo, jogabilidades);
 	}
 
-	
-	/**
-	 * Esse metodo cria um jogo de luta
-	 * 
-	 * @param nomeJogo - recebe o nome do jogo
-	 * @param preco - receb o preco do jogo
-	 * @return - retorna o jogo se luta criado
-	 */
-	private Jogo criaJogoLuta(String nomeJogo, double preco){
-		try {
-			Jogo novoJogo = new Luta(nomeJogo, preco);
-			return novoJogo;
-
-		} catch (DadosInvalidosException e) {
-			System.out.println("Dados passdos sao invalidos!");
-			return null;
-		}
-	}
-
-	/**
-	 * Esse metodo cria um jogo de plataforma
-	 * 
-	 * @param nomeJogo - recebe o nome do jogo
-	 * @param preco - receb o preco do jogo
-	 * @return - retorna o jogo de plataforma criado
-	 */
-	private Jogo criaJogoPlataforma(String nomeJogo, double preco){
-		try {
-			Jogo novoJogo = new Plataforma(nomeJogo, preco);
-			return novoJogo;
-
-		} catch (DadosInvalidosException e) {
-			System.out.println("Dados passdos sao invalidos!");
-			return null;
-		}
-	}
-
-	/**
-	 * Esse metodo cria um jogo de rpg
-	 * 
-	 * @param nomeJogo - recebe o nome do jogo
-	 * @param preco - recebe o preco do jogo
-	 * @return - retorna o jogo de rpg criado
-	 */
-	private Jogo criaJogoRpg(String nomeJogo, double preco){
-		try {
-			Jogo novoJogo = new Rpg(nomeJogo, preco);
-			return novoJogo;
-
-		} catch (DadosInvalidosException e) {
-			System.out.println("Dados passdos sao invalidos!");
-			return null;
-		}
-	}
 
 	/**
 	 * Esse metodo retorna um usuario da loja(se existir)
@@ -342,9 +274,9 @@ public class LojaController {
 	private boolean upgradeUsuario(Usuario usuarioNoob, Usuario usuarioVeterano)throws DadosInvalidosException{
 
 
-			transfereDadosUsuarios(usuarioNoob, usuarioVeterano);
+		transfereDadosUsuarios(usuarioNoob, usuarioVeterano);
 
-			return usuarios.replace(usuarioNoob.getLogin(), usuarioNoob, usuarioVeterano);
+		return usuarios.replace(usuarioNoob.getLogin(), usuarioNoob, usuarioVeterano);
 	}
 
 	/**
@@ -354,22 +286,17 @@ public class LojaController {
 	 * @param nomeJogo - recebe o nome do jogo
 	 * @param preco - recebe o preco do jogo
 	 * @param tipoJogo - recebe tipo do jogo
+	 * @param jogablidades - recebe uma lista de jogabiliades a ser adicionada
 	 * @return - retorna um boolean indicando se o jogo foi vendido com sucesso
 	 */
-	public boolean venderJogo(String login, String nomeJogo, double preco, TipoDeJogo tipoJogo){
+	public boolean venderJogo(String login, String nomeJogo, double preco, TipoDeJogo tipoJogo, List<Jogabilidade> jogabilidades)throws SteamException{
 
 		if(containUsuario(login)){
-			try {
 
-				ExcecoesP2cg.verificaLogin(login);
-				Usuario usuario = pegaUsuario(login);
+			Usuario usuario = pegaUsuario(login);
 
-				Jogo novoJogo = criaJogo(nomeJogo, preco, tipoJogo);
-				return usuario.compraJogo(novoJogo);
-
-			} catch (DadosInvalidosException e) {
-				System.out.println("Os dados passados estao incorretos!");
-			}
+			Jogo novoJogo = criaJogo(nomeJogo, preco, tipoJogo, jogabilidades);
+			return usuario.compraJogo(novoJogo);
 		}
 		return false;
 	}
@@ -443,6 +370,6 @@ public class LojaController {
 			return false;
 		return true;
 	}
-	
-	
+
+
 }
