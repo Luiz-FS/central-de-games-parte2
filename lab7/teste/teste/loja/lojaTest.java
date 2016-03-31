@@ -3,7 +3,7 @@ package teste.loja;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
-import loja.Loja;
+import loja.LojaController;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -14,18 +14,18 @@ import enumerations.TipoDeJogo;
 
 public class lojaTest {
 
-	private Loja centralP2;
+	private LojaController centralP2;
 	
 	@Before
 	public void Loja() {
-		centralP2 = new Loja();
+		centralP2 = new LojaController();
 	}
 
 	@Test
 	public void testAddUsuario() {
-		assertTrue(centralP2.addUsuario("Luiz", "luiz.silva", ExperienciaUsuario.VETERANO));
-		assertTrue(centralP2.addUsuario("Maiza", "maiza.leal", ExperienciaUsuario.NOOB));
-		assertFalse(centralP2.addUsuario("Luiz", "luiz.silva", ExperienciaUsuario.VETERANO));
+		assertTrue(centralP2.addUsuario("Luiz", "luiz.silva"));
+		assertTrue(centralP2.addUsuario("Maiza", "maiza.leal"));
+		assertFalse(centralP2.addUsuario("Luiz", "luiz.silva"));
 		
 	}
 
@@ -120,11 +120,11 @@ public class lojaTest {
 		assertTrue(centralP2.addUsuario("Luiz", "luiz.silva", ExperienciaUsuario.VETERANO));
 		assertTrue(centralP2.addUsuario("Maiza", "maiza.leal", ExperienciaUsuario.NOOB));
 		
-		Loja outraLoja = new Loja();
+		LojaController outraLoja = new LojaController();
 		assertTrue(outraLoja.addUsuario("Luiz", "luiz.silva", ExperienciaUsuario.VETERANO));
 		assertTrue(outraLoja.addUsuario("Maiza", "maiza.leal", ExperienciaUsuario.NOOB));
 		
-		Loja terceiraLoja = new Loja();
+		LojaController terceiraLoja = new LojaController();
 		assertTrue(terceiraLoja.addUsuario("Lucas", "lucas.silva", ExperienciaUsuario.VETERANO));
 		assertTrue(terceiraLoja.addUsuario("Maiza", "maiza.leal", ExperienciaUsuario.NOOB));
 		

@@ -5,6 +5,7 @@ import enumerations.ExperienciaUsuario;
 import exceptions.DadosInvalidosException;
 import exceptions.ExcecoesP2cg;
 import exceptions.NumeroInvalidoException;
+import exceptions.StringException;
 import jogos.Jogo;
 
 /**
@@ -21,7 +22,7 @@ public class UsuarioNoob extends Usuario {
 	 * @param login - recebe o login do usuario
 	 * @throws DadosInvalidosException - gera uma exception caso as entradas sejam invalidas
 	 */
-	public UsuarioNoob(String nome, String login) throws DadosInvalidosException{
+	public UsuarioNoob(String nome, String login) throws StringException{
 		super(nome, login);
 		super.setExperiencia(ExperienciaUsuario.NOOB.getTipoUsuario());
 	}

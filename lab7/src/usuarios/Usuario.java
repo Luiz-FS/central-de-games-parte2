@@ -36,7 +36,7 @@ public abstract class Usuario{
 	 * @param login - recebe o login do usuario
 	 * @throws DadosInvalidosException - gera uma exception caso as entradas sejam invalidas
 	 */
-	public Usuario(String nome, String login) throws DadosInvalidosException{
+	public Usuario(String nome, String login) throws StringException{
 
 		ExcecoesP2cg.verificaNome(nome);
 		ExcecoesP2cg.verificaLogin(login);

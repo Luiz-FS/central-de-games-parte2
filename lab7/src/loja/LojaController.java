@@ -9,34 +9,35 @@ import jogos.Luta;
 import jogos.Plataforma;
 import jogos.Rpg;
 import usuarios.Usuario;
-import usuarios.UsuarioNoob;
 import usuarios.UsuarioVeterano;
 import enumerations.ExperienciaUsuario;
 import enumerations.Jogabilidade;
 import enumerations.TipoDeJogo;
-import exceptions.ConstanteException;
 import exceptions.DadosInvalidosException;
 import exceptions.ExcecoesP2cg;
 import exceptions.NumeroInvalidoException;
 import exceptions.ObjetoinvalidoException;
 import exceptions.SteamException;
 import exceptions.StringException;
+import factory.UsuarioFactory;
 
 /**
  * 
  * @author Luiz Fernando da Silva
  *
  */
-public class Loja {
+public class LojaController {
 
 	private Map<String,Usuario> usuarios;
+	private UsuarioFactory fabricaUsuario;
 
 	/**
 	 * Construtor da loja
 	 */
-	public Loja(){
+	public LojaController(){
 
 		this.usuarios = new HashMap<String,Usuario>();
+		this.fabricaUsuario = new UsuarioFactory();
 	}
 
 	/**
@@ -44,43 +45,17 @@ public class Loja {
 	 * 
 	 * @param nome - recebe o nome do usuario
 	 * @param login - recebe o login do usuario
-	 * @param experiencia - recebe a experiencia do usuario
 	 * @return - retorna um boolean indicando se o usuario foi adicionado ou nao
 	 */
-	public boolean addUsuario(String nome, String login, ExperienciaUsuario experiencia){
-		try {
-
-			ExcecoesP2cg.verificaExperiencia(experiencia);
-
-			switch(experiencia){
-			case NOOB:
-				Usuario novoUsuarioNoob = new UsuarioNoob(nome, login);
-
-				if(! containUsuario(novoUsuarioNoob)){
-					usuarios.put(login, novoUsuarioNoob);
-
-					return true;
-				}
-				return false;
-
-			case VETERANO:
-				Usuario novoUsuarioVeterano = new UsuarioVeterano(nome, login);
-
-				if(! containUsuario(novoUsuarioVeterano)){
-					usuarios.put(login, novoUsuarioVeterano);
-
-					return true;
-				}
-				return false;
-			}
-
-		} catch (DadosInvalidosException e) {
-			System.out.println("Nome ou login invalido!");
-
-		} catch(ConstanteException e){
-			System.out.println("Tipo de usuario nao existe!");
+	public boolean addUsuario(String nome, String login, ExperienciaUsuario experiencia)throws SteamException{
+		Usuario usuarioNoob = fabricaUsuario.criaUsuario(nome, login, experiencia);
+		
+		if(! containUsuario(usuarioNoob)){
+			usuarios.put(usuarioNoob.getLogin(), usuarioNoob);
+			return true;
 		}
-		return true;
+		
+		return false;
 	}
 
 	/**
@@ -456,7 +431,7 @@ public class Loja {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Loja other = (Loja) obj;
+		LojaController other = (LojaController) obj;
 		if (usuarios == null) {
 			if (other.usuarios != null)
 				return false;
