@@ -48,7 +48,7 @@ public class LojaController {
 	 * @return - retorna um boolean indicando se o usuario foi adicionado ou nao
 	 */
 	public boolean addUsuario(String nome, String login, ExperienciaUsuario experiencia)throws SteamException{
-		Usuario usuarioNoob = fabricaUsuario.criaUsuario(nome, login, experiencia);
+		Usuario usuarioNoob = criaUsuario(nome, login, experiencia);
 		
 		if(! containUsuario(usuarioNoob)){
 			usuarios.put(usuarioNoob.getLogin(), usuarioNoob);
@@ -56,6 +56,10 @@ public class LojaController {
 		}
 		
 		return false;
+	}
+	
+	private Usuario criaUsuario(String nomeUsuario, String loginUsuario, ExperienciaUsuario experiencia)throws SteamException{
+		return fabricaUsuario.criaUsuario(nomeUsuario, loginUsuario, experiencia);
 	}
 
 	/**
