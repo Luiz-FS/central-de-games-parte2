@@ -256,7 +256,7 @@ public class LojaController {
 				}
 
 			}
-		} catch (DadosInvalidosException e) {
+		} catch (SteamException e) {
 			System.out.println("Login fornecido eh invalido, usuario eh veterano ou nao possue xp2 suficiente!");
 			return false;
 		}

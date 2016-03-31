@@ -110,6 +110,18 @@ public class ExcecoesP2cg {
 		}
 	}
 
+	/**
+	 * Esse metodo verifica se um usuario eh valido ou nao
+	 * 
+	 * @param usuario recebe o usuaio que sera verificado
+	 * @throws ObjetoinvalidoException - gera uma exception caso o usuario seja invalido
+	 */
+	public static void verificaUsuario(Usuario usuario)throws ObjetoinvalidoException{
+		
+		if(usuario == null){
+			throw new ObjetoinvalidoException("Usuario nao pode ser nulo");
+		}
+	}
 
 	/**
 	 * Esse metedo verifica se um determinado usuario eh veterano
@@ -117,14 +129,14 @@ public class ExcecoesP2cg {
 	 * @param usuario - recebe o usuario
 	 * @throws DadosInvalidosException - gera uma exception caso o usuario seja veterano
 	 */
-	public static void verificaUsuarioVeterano(Usuario usuario)throws DadosInvalidosException{
+	public static void verificaUsuarioVeterano(Usuario usuario)throws SteamException{
 
 		if(usuario == null){
 			throw new ObjetoinvalidoException("Usuario nao existe");
 		}
 		
 		if(usuario.getExperiencia().equalsIgnoreCase("veterano")){
-			throw new DadosInvalidosException("Usuario ja eh veterano");
+			throw new LogicaException("Usuario ja eh veterano");
 		}
 	}
 	

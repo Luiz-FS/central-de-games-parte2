@@ -5,7 +5,6 @@ import java.util.List;
 import enumerations.Jogabilidade;
 import enumerations.TipoDeJogo;
 import exceptions.ConstanteException;
-import exceptions.ObjetoinvalidoException;
 import exceptions.SteamException;
 import jogos.Jogo;
 import jogos.Luta;
