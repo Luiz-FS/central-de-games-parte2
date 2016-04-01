@@ -60,22 +60,22 @@ public class LojaController {
 		return fabricaUsuario.criaUsuario(nomeUsuario, loginUsuario, experiencia);
 	}
 
-	
+
 	public boolean addDinheioUsuario(String login,double quantDinheiro)throws SteamException{
 
-			if(containUsuario(login)){
+		if(containUsuario(login)){
 
-				Usuario usuario = bancoUsuarios.getUsuario(login);
-				usuario.adicionaDinheiro(quantDinheiro);
-				return true;
+			Usuario usuario = bancoUsuarios.getUsuario(login);
+			usuario.adicionaDinheiro(quantDinheiro);
+			return true;
 
-			}else{
-				return false;
-			}
+		}else{
+			return false;
+		}
 
 	}
 
-/*
+	/*
 	/**
 	 * Esse metodo adiciona uma jogabilidade a um determinado jogo
 	 * 
@@ -83,7 +83,7 @@ public class LojaController {
 	 * @param nomeJogo - recebe o nome do jogo
 	 * @param jogabilidade - recebe o nome do jogo
 	 * @return - retorna um boolean indicando se a jogabilidade foi adicionada ou nao
-	 
+
 	public boolean addJogabilidade(String login, String nomeJogo, Jogabilidade jogabilidade){
 
 		if(containUsuario(login)){
@@ -101,7 +101,7 @@ public class LojaController {
 			return false;
 		}
 	}
-*/
+	 */
 
 	public boolean containUsuario(String loginUsuario)throws StringException{
 		return this.bancoUsuarios.containUsuario(loginUsuario);
@@ -124,14 +124,14 @@ public class LojaController {
 
 	public boolean registraJogada(String login, String nomeJogo, int score, boolean zerou)throws SteamException{
 
-			if(containUsuario(login)){
-				Usuario usuario = bancoUsuarios.getUsuario(login);
+		if(containUsuario(login)){
+			Usuario usuario = bancoUsuarios.getUsuario(login);
 
-				return usuario.registraJogada(nomeJogo, score, zerou);
+			return usuario.registraJogada(nomeJogo, score, zerou);
 
-			}else{
-				return false;
-			}
+		}else{
+			return false;
+		}
 
 	}
 
@@ -162,17 +162,17 @@ public class LojaController {
 
 		final int XP2_MINIMO = 1000;
 
-			if(containUsuario(login)){
+		if(containUsuario(login)){
 
-				Usuario usuario = bancoUsuarios.getUsuario(login);
-				ExcecoesP2cg.verificaUsuarioVeterano(usuario);
+			Usuario usuario = bancoUsuarios.getUsuario(login);
+			ExcecoesP2cg.verificaUsuarioVeterano(usuario);
 
-				if(usuario.getXp2() >= XP2_MINIMO){
-					Usuario usuarioVeterano = new UsuarioVeterano(usuario.getNome(), usuario.getLogin());
+			if(usuario.getXp2() >= XP2_MINIMO){
+				Usuario usuarioVeterano = new UsuarioVeterano(usuario.getNome(), usuario.getLogin());
 
-					upgradeUsuario(usuario, usuarioVeterano);
-					return true;
-				}
+				upgradeUsuario(usuario, usuarioVeterano);
+				return true;
+			}
 		}
 		return false;
 	}
@@ -224,11 +224,11 @@ public class LojaController {
 	 */
 	public boolean usuarioContainsJogo(String loginUsuario, String nomeJogo)throws SteamException{
 
-			if(bancoUsuarios.containUsuario(loginUsuario)){
+		if(bancoUsuarios.containUsuario(loginUsuario)){
 
-				Usuario usuario = bancoUsuarios.getUsuario(loginUsuario);
-				return usuario.containJogo(nomeJogo);
-			}
+			Usuario usuario = bancoUsuarios.getUsuario(loginUsuario);
+			return usuario.containJogo(nomeJogo);
+		}
 		return false;
 	}
 
@@ -238,8 +238,7 @@ public class LojaController {
 	@Override
 	public String toString(){
 		final String FIM_DE_LINHA = System.lineSeparator();
-		String saida = "=== Central P2-CG ===" + FIM_DE_LINHA + FIM_DE_LINHA
-						+ FIM_DE_LINHA;
+		String saida = "=== Central P2-CG ===" + FIM_DE_LINHA + FIM_DE_LINHA;
 
 		return saida;
 	}
