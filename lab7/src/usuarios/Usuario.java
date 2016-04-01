@@ -321,6 +321,8 @@ public abstract class Usuario{
 
 			saida += jogo + FIM_DE_LINHA
 					+ "Total de preco dos jogos: R$ " + df.format(calculaTotalPrecoJogos())
+					+ FIM_DE_LINHA + FIM_DE_LINHA
+					+ "--------------------------------------------------------------------"
 					+ FIM_DE_LINHA;
 		}
 		return saida;

@@ -1,9 +1,7 @@
-/* LUIZ FERNANDO DA SILVA*/
 package banco.usuarios;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import exceptions.ExcecoesP2cg;
 import exceptions.LogicaException;
 import exceptions.ObjetoinvalidoException;
@@ -57,5 +55,15 @@ public class BancoUsuarios {
 		ExcecoesP2cg.verificaUsuario(novo);
 		
 		usuarios.replace(antigo.getLogin(), antigo, novo);
+	}
+	
+	public String toString(){
+		String saida = "";
+		
+		for(Usuario usuario : usuarios.values()){
+			saida += usuario.toString();
+		}
+		
+		return saida;
 	}
 }

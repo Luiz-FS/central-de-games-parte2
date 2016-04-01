@@ -80,8 +80,8 @@ public class UsuarioNoob extends Usuario {
 	public String toString(){
 		
 		final String FIM_DE_LINHA = System.lineSeparator();
-		String saida = super.getLogin() + FIM_DE_LINHA
-				       + super.getNome() + " - Jogador Noob" + FIM_DE_LINHA
+		String saida = "Jogador Noob: " + super.getLogin() + FIM_DE_LINHA
+				       + super.getNome() + " - " + super.getXp2() + " xp2" + FIM_DE_LINHA
 				       + super.toString();
 		return saida;
 	}
