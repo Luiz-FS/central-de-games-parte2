@@ -1,4 +1,4 @@
-package banco.usuarios;
+package banco.dados;
 
 import java.util.HashMap;
 import java.util.Map;

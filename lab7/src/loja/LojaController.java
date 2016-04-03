@@ -5,8 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
-import banco.usuarios.BancoUsuarios;
+import banco.dados.BancoUsuarios;
 import enumerations.ExperienciaUsuario;
 import enumerations.Jogabilidade;
 import enumerations.TipoDeJogo;
