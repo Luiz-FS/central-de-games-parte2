@@ -14,6 +14,9 @@ import jogos.Jogo;
  *
  */
 public class UsuarioNoob extends Usuario {
+	
+	private final int PENAJOGOONLINE = 10;
+	private final int PENAJOGOCOOPERATIVO = 20;
 
 	/**
 	 * Contrutor da classe usuario noob
@@ -84,5 +87,17 @@ public class UsuarioNoob extends Usuario {
 				       + super.getNome() + " - " + super.getXp2() + " xp2" + FIM_DE_LINHA
 				       + super.toString();
 		return saida;
+	}
+
+	@Override
+	public boolean recompensar(String nomeJogo, int score, boolean zerou) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean punir(String nomeJogo, int score, boolean zerou) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

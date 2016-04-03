@@ -198,6 +198,10 @@ public abstract class Usuario{
 		}
 		return false;
 	}
+	
+	public abstract boolean recompensar(String nomeJogo, int score, boolean zerou);
+	
+	public abstract boolean punir(String nomeJogo, int score, boolean zerou);
 
 	/**
 	 * Esse metodo calcula o total de preco dos jogos comprados pelo usuario
