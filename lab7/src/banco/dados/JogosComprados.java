@@ -3,6 +3,7 @@ package banco.dados;
 import java.util.HashSet;
 import java.util.Set;
 
+import exceptions.LogicaException;
 import jogos.Jogo;
 
 public class JogosComprados {
@@ -20,5 +21,32 @@ public class JogosComprados {
 	
 	private boolean containJogo(Jogo jogo){
 		return jogos.contains(jogo);
+	}
+	
+	public boolean containJogo(String nomeJogo){
+		
+		for(Jogo jogo : jogos){
+			
+			if(jogo.getNome().equalsIgnoreCase(nomeJogo)){
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	public Jogo pegaJogo(String nomeJogo)throws LogicaException{
+		
+		if(containJogo(nomeJogo)){
+			
+			for(Jogo jogo : jogos){
+				
+				if(jogo.getNome().equalsIgnoreCase(nomeJogo)){
+					return jogo;
+				}
+			}
+		}
+		
+		throw new LogicaException("Jogo nao existe!");
 	}
 }

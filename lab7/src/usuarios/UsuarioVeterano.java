@@ -87,4 +87,16 @@ public class UsuarioVeterano extends Usuario{
 				       + super.toString();
 		return saida;
 	}
+
+	@Override
+	public boolean recompensar(String nomeJogo, int score, boolean zerou) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean punir(String nomeJogo, int score, boolean zerou) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
