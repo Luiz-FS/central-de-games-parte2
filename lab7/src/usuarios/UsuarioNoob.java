@@ -27,7 +27,6 @@ public class UsuarioNoob extends Usuario {
 	 */
 	public UsuarioNoob(String nome, String login) throws StringException{
 		super(nome, login);
-		super.setExperiencia(ExperienciaUsuario.NOOB.getTipoUsuario());
 	}
 
 	/**

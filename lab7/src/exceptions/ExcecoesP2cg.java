@@ -135,7 +135,9 @@ public class ExcecoesP2cg {
 			throw new ObjetoinvalidoException("Usuario nao existe");
 		}
 		
-		if(usuario.getExperiencia().equalsIgnoreCase("veterano")){
+		String esperiencia = usuario.getClass().getSimpleName();
+		
+		if(esperiencia.equalsIgnoreCase("veterano")){
 			throw new LogicaException("Usuario ja eh veterano");
 		}
 	}

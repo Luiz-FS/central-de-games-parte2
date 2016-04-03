@@ -27,7 +27,6 @@ public abstract class Usuario{
 	private Set<Jogo> jogosComprados;
 	private double quantDinheiro;
 	private int xp2;
-	private String experiencia;
 
 	/**
 	 * Construtor da classe usuario
@@ -46,7 +45,6 @@ public abstract class Usuario{
 		this.jogosComprados = new HashSet<Jogo>();
 		this.quantDinheiro = 0.0;
 		this.xp2 = 0;
-		this.experiencia = "indefinida";
 	}
 
 	/**
@@ -259,18 +257,10 @@ public abstract class Usuario{
 	 * 
 	 * @return - retorna uma string informando a experiencia do usuario
 	 */
-	public String getExperiencia(){
-		return this.experiencia;
-	}
+	//public String getExperiencia(){
+		//return this.experiencia;
+	//}
 	
-	/**
-	 * Esse metodo altera a experiencia do usuario(noob ou veterano)
-	 * 
-	 * @param experiencia - recebe a experiencia do usuario
-	 */
-	protected void setExperiencia(String experiencia) {
-		this.experiencia = experiencia;
-	}
 
 	/**
 	 * Metodo hashcode que verifica se dois usuarios sao iguais atraves do nome e login

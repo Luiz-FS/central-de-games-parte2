@@ -25,7 +25,6 @@ public class UsuarioVeterano extends Usuario{
 	 */
 	public UsuarioVeterano(String nome, String login) throws DadosInvalidosException{
 		super(nome, login);
-		super.setExperiencia(ExperienciaUsuario.VETERANO.getTipoUsuario());
 	}
 	
 	/**
