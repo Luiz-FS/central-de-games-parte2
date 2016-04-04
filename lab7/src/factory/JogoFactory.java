@@ -18,31 +18,19 @@ public class JogoFactory {
 		switch(tipo){
 		
 		case RPG:
-			Jogo jogoRpg = new Rpg(nomeJogo, preco);
-			adicionaJogabilidade(jogoRpg, jogabilidades);
+			Jogo jogoRpg = new Rpg(nomeJogo, preco, jogabilidades);
 			return jogoRpg;
 			
 		case PLATAFORMA:
-			Jogo jogoPlataforma = new Plataforma(nomeJogo, preco);
-			adicionaJogabilidade(jogoPlataforma, jogabilidades);
+			Jogo jogoPlataforma = new Plataforma(nomeJogo, preco, jogabilidades);
 			return jogoPlataforma;
 			
 		case LUTA:
-			Jogo jogoLuta = new Luta(nomeJogo, preco);
-			adicionaJogabilidade(jogoLuta, jogabilidades);
+			Jogo jogoLuta = new Luta(nomeJogo, preco, jogabilidades);
 			return jogoLuta;
 			
 		default:
 			throw new ConstanteException("Tipo de jogo inexistente!");
-		}
-	}
-	
-	private void adicionaJogabilidade(Jogo jogo, List<Jogabilidade> jogabilidades)throws ConstanteException{
-		
-		for(Jogabilidade jogabilidade : jogabilidades){
-			if(jogabilidade != null){
-				jogo.adicionaJogabilidade(jogabilidade);
-			}
 		}
 	}
 }

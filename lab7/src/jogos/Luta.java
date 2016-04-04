@@ -1,6 +1,9 @@
 /* 115111424 - LUIZ FERNANDO DA SILVA: LAB 6 - Turma 3 */
 package jogos;
 
+import java.util.List;
+
+import enumerations.Jogabilidade;
 import exceptions.DadosInvalidosException;
 import exceptions.ExcecoesP2cg;
 import exceptions.SteamException;
@@ -21,8 +24,8 @@ public class Luta extends Jogo{
 	 * @param preco - receb o preco do jogo
 	 * @throws DadosInvalidosException - gera uma exception caso as entradas sejam invalidas
 	 */
-	public Luta(String nome, double preco)throws DadosInvalidosException{
-		super(nome, preco);
+	public Luta(String nome, double preco, List<Jogabilidade> jogabilidades)throws DadosInvalidosException{
+		super(nome, preco, jogabilidades);
 	}
 
 	/**

@@ -1,6 +1,9 @@
-/loja/
-/usuarios/
 /banco/
+/enumerations/
 /exceptions/
+/factory/
 /iusuarios/
 /jogos/
+/loja/
+/teste/
+/usuarios/

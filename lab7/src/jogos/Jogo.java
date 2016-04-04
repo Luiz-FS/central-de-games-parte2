@@ -1,8 +1,7 @@
 /* 115111424 - LUIZ FERNANDO DA SILVA: LAB 6 - Turma 3 */
 package jogos;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 import enumerations.Jogabilidade;
 import exceptions.ConstanteException;
@@ -22,7 +21,7 @@ public abstract class Jogo {
 	private int maiorScore;
 	private int quantidadeVezesJogadas;
 	private int vezesZeradas;
-	private Set<Jogabilidade> jogabilidades;
+	private List<Jogabilidade> jogabilidades;
 
 	/**
 	 * Contrutor da classe jogo
@@ -31,7 +30,7 @@ public abstract class Jogo {
 	 * @param preco - recebe o preco do jogo
 	 * @throws DadosInvalidosException - gera uma exception caso as entradas sejam invalidas
 	 */
-	public Jogo(String nome, double preco)throws DadosInvalidosException{
+	public Jogo(String nome, double preco, List<Jogabilidade> jogabilidades)throws DadosInvalidosException{
 		ExcecoesP2cg.verificaNome(nome);
 		ExcecoesP2cg.verificaPreco(preco);
 		
@@ -40,7 +39,7 @@ public abstract class Jogo {
 		this.maiorScore = 0;
 		this.quantidadeVezesJogadas = 0;
 		this.vezesZeradas = 0;
-		this.jogabilidades = new HashSet<Jogabilidade>();
+		this.jogabilidades = jogabilidades;
 	}
 
 	/**

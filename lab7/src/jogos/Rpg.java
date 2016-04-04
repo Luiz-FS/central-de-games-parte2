@@ -1,6 +1,9 @@
 /* 115111424 - LUIZ FERNANDO DA SILVA: LAB 6 - Turma 3 */
 package jogos;
 
+import java.util.List;
+
+import enumerations.Jogabilidade;
 import exceptions.DadosInvalidosException;
 import exceptions.SteamException;
 
@@ -20,8 +23,8 @@ public class Rpg extends Jogo{
 	 * @param preco - recebe o preco do jogo
 	 * @throws DadosInvalidosException - gera uma exception caso as entradas sejam invalidas
 	 */
-	public Rpg(String nome, double preco)throws DadosInvalidosException {
-		super(nome, preco);
+	public Rpg(String nome, double preco, List<Jogabilidade> jogabilidades)throws DadosInvalidosException {
+		super(nome, preco, jogabilidades  );
 	}
 	
 	/**
