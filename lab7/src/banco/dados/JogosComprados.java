@@ -19,10 +19,6 @@ public class JogosComprados {
 		return jogos.add(jogo);
 	}
 	
-	private boolean containJogo(Jogo jogo){
-		return jogos.contains(jogo);
-	}
-	
 	public boolean containJogo(String nomeJogo){
 		
 		for(Jogo jogo : jogos){

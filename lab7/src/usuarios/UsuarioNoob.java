@@ -14,9 +14,6 @@ import jogos.Jogo;
  *
  */
 public class UsuarioNoob extends Usuario {
-	
-	private final int PENAJOGOONLINE = 10;
-	private final int PENAJOGOCOOPERATIVO = 20;
 
 	/**
 	 * Contrutor da classe usuario noob

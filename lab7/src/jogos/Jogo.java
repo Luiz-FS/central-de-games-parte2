@@ -137,6 +137,17 @@ public abstract class Jogo {
 	public int getVezesZeradas() {
 		return vezesZeradas;
 	}
+	
+	public boolean containJogabilidade(Jogabilidade jogabilidade){
+		
+		for(Jogabilidade jogabilidades : jogabilidades){
+			if(jogabilidades.equals(jogabilidade)){
+				return true;
+			}
+		}
+		
+		return false;
+	}
 
 	/**
 	 * Metodo hash code que determina se dois jogos sao iguais pelo nome

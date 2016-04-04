@@ -8,7 +8,7 @@ import exceptions.NumeroInvalidoException;
 import exceptions.StringException;
 import jogos.Jogo;
 
-public class UsuarioVeterano implements IUsuario{
+public class UsuarioVeterano implements TipoUsuarioIF{
 
 	private String nome;
 	private String login;
@@ -46,7 +46,7 @@ public class UsuarioVeterano implements IUsuario{
 	private void calculaXp2Compra(Jogo jogo) throws NumeroInvalidoException{
 		
 		int pontosxp2Noob = ExperienciaUsuario.VETERANO.getPontuacao();
-		int xp2Recebido = (int)jogo.getPreco() * pontosxp2Noob;
+		int xp2Recebido = (int) (jogo.getPreco() * pontosxp2Noob);
 		
 		aumentaXp2(xp2Recebido);
 	}
@@ -75,30 +75,5 @@ public class UsuarioVeterano implements IUsuario{
 	public void punir(String nomeJogo, int score, boolean zerou) {
 		// TODO Auto-generated method stub
 		
-	}
-
-	@Override
-	public boolean containJogo(String nomeJogo) {
-		return jogos.containJogo(nomeJogo);
-	}
-
-	@Override
-	public String getLogin() {
-		return this.login;
-	}
-
-	@Override
-	public String getNome() {
-		return this.nome;
-	}
-
-	@Override
-	public int getXp2() {
-		return this.xp2;
-	}
-
-	@Override
-	public double getQuantDinheiro() {
-		return this.quantDinheiro;
 	}
 }
