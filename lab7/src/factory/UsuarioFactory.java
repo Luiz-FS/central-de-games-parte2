@@ -2,10 +2,10 @@ package factory;
 
 import enumerations.ExperienciaUsuario;
 import exceptions.ConstanteException;
-import exceptions.ExcecoesP2cg;
 import exceptions.SteamException;
 import usuarios.Usuario;
 import usuarios.UsuarioNoob;
+import util.ExcecoesP2cg;
 
 public class UsuarioFactory {
 	

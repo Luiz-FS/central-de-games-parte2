@@ -2,9 +2,9 @@
 package usuarios;
 
 
+import util.ExcecoesP2cg;
 import enumerations.ExperienciaUsuario;
 import exceptions.DadosInvalidosException;
-import exceptions.ExcecoesP2cg;
 import exceptions.NumeroInvalidoException;
 import jogos.Jogo;
 

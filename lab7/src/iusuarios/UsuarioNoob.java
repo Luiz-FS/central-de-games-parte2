@@ -1,8 +1,8 @@
 package iusuarios;
 
+import util.ExcecoesP2cg;
 import enumerations.ExperienciaUsuario;
 import enumerations.Jogabilidade;
-import exceptions.ExcecoesP2cg;
 import exceptions.NumeroInvalidoException;
 import exceptions.ObjetoinvalidoException;
 import jogos.Jogo;

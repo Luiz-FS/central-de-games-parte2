@@ -2,12 +2,13 @@ package banco.dados;
 
 import java.util.HashMap;
 import java.util.Map;
-import exceptions.ExcecoesP2cg;
+
 import exceptions.LogicaException;
 import exceptions.ObjetoinvalidoException;
 import exceptions.SteamException;
 import exceptions.StringException;
 import usuarios.Usuario;
+import util.ExcecoesP2cg;
 
 public class BancoUsuarios {
 	

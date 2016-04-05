@@ -1,9 +1,9 @@
 /* 115111424 - LUIZ FERNANDO DA SILVA: LAB 6 - Turma 3 */
 package usuarios;
 
+import util.ExcecoesP2cg;
 import enumerations.ExperienciaUsuario;
 import exceptions.DadosInvalidosException;
-import exceptions.ExcecoesP2cg;
 import exceptions.NumeroInvalidoException;
 import exceptions.StringException;
 import jogos.Jogo;

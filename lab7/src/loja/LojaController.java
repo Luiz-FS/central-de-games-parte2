@@ -10,7 +10,6 @@ import enumerations.ExperienciaUsuario;
 import enumerations.Jogabilidade;
 import enumerations.TipoDeJogo;
 import exceptions.DadosInvalidosException;
-import exceptions.ExcecoesP2cg;
 import exceptions.SteamException;
 import exceptions.StringException;
 import factory.JogoFactory;
@@ -18,6 +17,7 @@ import factory.UsuarioFactory;
 import jogos.Jogo;
 import usuarios.Usuario;
 import usuarios.UsuarioVeterano;
+import util.ExcecoesP2cg;
 
 /**
  * 

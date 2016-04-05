@@ -3,9 +3,9 @@ package jogos;
 
 import java.util.List;
 
+import util.ExcecoesP2cg;
 import enumerations.Jogabilidade;
 import exceptions.DadosInvalidosException;
-import exceptions.ExcecoesP2cg;
 import exceptions.SteamException;
 
 /**

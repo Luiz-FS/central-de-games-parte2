@@ -1,8 +1,15 @@
 /* 115111424 - LUIZ FERNANDO DA SILVA: LAB 6 - Turma 3 */
-package exceptions;
+package util;
 
 import enumerations.ExperienciaUsuario;
 import enumerations.Jogabilidade;
+import exceptions.ConstanteException;
+import exceptions.DadosInvalidosException;
+import exceptions.LogicaException;
+import exceptions.NumeroInvalidoException;
+import exceptions.ObjetoinvalidoException;
+import exceptions.SteamException;
+import exceptions.StringException;
 import iusuarios.TipoUsuarioIF;
 import jogos.Jogo;
 import usuarios.Usuario;

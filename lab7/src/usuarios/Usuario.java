@@ -5,10 +5,10 @@ import java.text.DecimalFormat;
 import java.util.HashSet;
 import java.util.Set;
 
+import util.ExcecoesP2cg;
 import jogos.Jogo;
 import enumerations.Jogabilidade;
 import exceptions.DadosInvalidosException;
-import exceptions.ExcecoesP2cg;
 import exceptions.NumeroInvalidoException;
 import exceptions.ObjetoinvalidoException;
 import exceptions.SteamException;

@@ -1,8 +1,8 @@
 package iusuarios;
 
+import util.ExcecoesP2cg;
 import banco.dados.JogosComprados;
 import exceptions.DadosInvalidosException;
-import exceptions.ExcecoesP2cg;
 import exceptions.NumeroInvalidoException;
 import exceptions.SteamException;
 import exceptions.StringException;
