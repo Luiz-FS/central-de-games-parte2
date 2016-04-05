@@ -158,7 +158,8 @@ public class LojaController {
 	@Override
 	public String toString(){
 		final String FIM_DE_LINHA = System.lineSeparator();
-		String saida = "=== Central P2-CG ===" + FIM_DE_LINHA + FIM_DE_LINHA;
+		String saida = "=== Central P2-CG ===" + FIM_DE_LINHA + FIM_DE_LINHA
+					 + bancoUsuarios;
 
 		return saida;
 	}
