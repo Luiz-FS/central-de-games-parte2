@@ -26,7 +26,6 @@ import usuarios.UsuarioVeterano;
  */
 public class LojaController {
 
-	private Map<String,Usuario> usuarios;
 	private UsuarioFactory fabricaUsuario;
 	private JogoFactory fabricaJogo;
 	private BancoUsuarios bancoUsuarios;
@@ -36,7 +35,6 @@ public class LojaController {
 	 */
 	public LojaController(){
 
-		this.usuarios = new HashMap<String,Usuario>();
 		this.fabricaUsuario = new UsuarioFactory();
 		this.fabricaJogo = new JogoFactory();
 		this.bancoUsuarios = new BancoUsuarios();
@@ -132,64 +130,6 @@ public class LojaController {
 			return false;
 		}
 
-	}
-
-	/**
-	 * Esse metodo transfere as informacoes de um usuario pra outro na hora do upgrade
-	 * 
-	 * @param noob - recebe o usuario noob
-	 * @param veterano - recebe o usuario veterano
-	 * @throws DadosInvalidosException - gera uma exception caso as entradas sejam invalidas
-	 */
-	private void transfereDadosUsuarios(Usuario noob, Usuario veterano) throws DadosInvalidosException{
-
-		veterano.adicionaDinheiro(noob.getQuantDinrheiro());
-		veterano.aumentaXp2(noob.getXp2());
-
-		for(Jogo jogo : noob.getJogos()){
-			veterano.addJogo(jogo);
-		}
-	}
-
-	/**
-	 * Esse metodo faz o upgrade de usuarios(Noob para veterano)
-	 * 
-	 * @param login - recebe o login do usuario
-	 * @return - retorna um boolean indicando se o upgrade foi feito com sucesso
-	 */
-	public boolean upgradeUsuario(String login)throws SteamException{
-
-		final int XP2_MINIMO = 1000;
-
-		if(containUsuario(login)){
-
-			Usuario usuario = bancoUsuarios.getUsuario(login);
-			ExcecoesP2cg.verificaUsuarioVeterano(usuario);
-
-			if(usuario.getXp2() >= XP2_MINIMO){
-				Usuario usuarioVeterano = new UsuarioVeterano(usuario.getNome(), usuario.getLogin());
-
-				upgradeUsuario(usuario, usuarioVeterano);
-				return true;
-			}
-		}
-		return false;
-	}
-
-	/**
-	 * Esse metodo subtitui o usuario noob por um novo usuario veterano nas lista de usuarios
-	 * 
-	 * @param usuarioNoob - recebe o usuario noob
-	 * @param usuarioVeterano - recebe o usuario veterano
-	 * @return - retorna um boolean indicando se a troca foi feita com sucesso
-	 * @throws DadosInvalidosException - gera uma exception caso as entradas sejam invalidas
-	 */
-	private boolean upgradeUsuario(Usuario usuarioNoob, Usuario usuarioVeterano)throws DadosInvalidosException{
-
-
-		transfereDadosUsuarios(usuarioNoob, usuarioVeterano);
-
-		return usuarios.replace(usuarioNoob.getLogin(), usuarioNoob, usuarioVeterano);
 	}
 
 	/**

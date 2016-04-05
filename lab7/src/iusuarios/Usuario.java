@@ -54,7 +54,7 @@ public class Usuario {
 
 			retiraDinehiro(precoJogo);
 			int xp2 = tipoUsuario.calculaXp2Compra(jogo.getPreco());
-			auteraXp2(xp2);
+			alteraXp2(xp2);
 
 			jogos.adicionaJogo(jogo);
 			return true;
@@ -105,8 +105,10 @@ public class Usuario {
 	 * @param xp2 - recebe o xp2 a ser adicionado
 	 * @throws NumeroInvalidoException - gera uma exception caso as entradas sejam invalidas
 	 */
-	private void auteraXp2(int xp2)throws NumeroInvalidoException{
+	private void alteraXp2(int xp2)throws SteamException{
+		
 		this.xp2 += xp2;
+		statusUsuario();
 	}
 
 	public boolean recompensar(String nomeJogo, int score, boolean zerou)throws SteamException{
@@ -120,9 +122,7 @@ public class Usuario {
 			int xp2 = jogo.registraJogada(score, zerou);
 			xp2 += tipoUsuario.recompensar(jogo);
 			
-			auteraXp2(xp2);
-			
-			statusUsuario();
+			alteraXp2(xp2);
 			
 			return true;
 		}
@@ -132,6 +132,10 @@ public class Usuario {
 	private void statusUsuario() throws SteamException {
 		if(this.xp2 >= 1000){
 			upgrade();
+		}
+		
+		if(this.xp2 < 1000){
+			downgrade();
 		}
 	}
 
@@ -146,7 +150,7 @@ public class Usuario {
 			int xp2 = jogo.registraJogada(score, zerou);
 			xp2 -= tipoUsuario.punir(jogo);
 			
-			auteraXp2(xp2);
+			alteraXp2(xp2);
 			
 			return true;
 		}
