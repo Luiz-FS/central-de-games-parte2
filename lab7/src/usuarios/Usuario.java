@@ -236,16 +236,6 @@ public class Usuario {
 	}
 
 	/**
-	 * Esse metodo retorna a experiencia do usuario(noob ou veterano)
-	 * 
-	 * @return - retorna uma string informando a experiencia do usuario
-	 */
-	//public String getExperiencia(){
-	//return this.experiencia;
-	//}
-
-
-	/**
 	 * Metodo hashcode que verifica se dois usuarios sao iguais atraves do nome e login
 	 */
 	@Override

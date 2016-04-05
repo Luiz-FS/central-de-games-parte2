@@ -46,10 +46,20 @@ public class LojaFacade {
 		}
 	}
 
-	public boolean registraJogada(String login, String nomeJogo, int score, boolean zerou) {
+	public boolean recompensarUsuario(String login, String nomeJogo, int score, boolean zerou) {
 
 		try {
-			return controladorLoja.registraJogada(login, nomeJogo, score, zerou);
+			return controladorLoja.recompensarUsuario(login, nomeJogo, score, zerou);
+
+		} catch (SteamException e) {
+			return false;
+		}
+	}
+	
+	public boolean punirUsuario(String login, String nomeJogo, int score, boolean zerou) {
+
+		try {
+			return controladorLoja.punirUsuario(login, nomeJogo, score, zerou);
 
 		} catch (SteamException e) {
 			return false;

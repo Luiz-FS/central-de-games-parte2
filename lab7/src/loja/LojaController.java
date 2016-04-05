@@ -1,9 +1,7 @@
 /* 115111424 - LUIZ FERNANDO DA SILVA: LAB 6 - Turma 3 */
 package loja;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import banco.dados.BancoUsuarios;
 import enumerations.ExperienciaUsuario;
@@ -16,8 +14,6 @@ import factory.JogoFactory;
 import factory.UsuarioFactory;
 import jogos.Jogo;
 import usuarios.Usuario;
-import usuarios.UsuarioVeterano;
-import util.ExcecoesP2cg;
 
 /**
  * 
@@ -72,34 +68,6 @@ public class LojaController {
 
 	}
 
-	/*
-	/**
-	 * Esse metodo adiciona uma jogabilidade a um determinado jogo
-	 * 
-	 * @param login - recebe o login do usuario
-	 * @param nomeJogo - recebe o nome do jogo
-	 * @param jogabilidade - recebe o nome do jogo
-	 * @return - retorna um boolean indicando se a jogabilidade foi adicionada ou nao
-
-	public boolean addJogabilidade(String login, String nomeJogo, Jogabilidade jogabilidade){
-
-		if(containUsuario(login)){
-			try{
-				Usuario usuario = pegaUsuario(login);
-
-				usuario.adicionaJogabilidade(nomeJogo, jogabilidade);
-				return true;
-
-			}catch(SteamException e){
-				System.out.println("Usuario ou jogo nao existe");
-				return false;
-			}
-		}else{
-			return false;
-		}
-	}
-	 */
-
 	public boolean containUsuario(String loginUsuario)throws StringException{
 		return this.bancoUsuarios.containUsuario(loginUsuario);
 	}
@@ -119,12 +87,25 @@ public class LojaController {
 	}
 
 
-	public boolean registraJogada(String login, String nomeJogo, int score, boolean zerou)throws SteamException{
+	public boolean recompensarUsuario(String login, String nomeJogo, int score, boolean zerou)throws SteamException{
 
 		if(containUsuario(login)){
 			Usuario usuario = bancoUsuarios.getUsuario(login);
 
-			return usuario.registraJogada(nomeJogo, score, zerou);
+			return usuario.recompensar(nomeJogo, score, zerou);
+
+		}else{
+			return false;
+		}
+
+	}
+	
+	public boolean punirUsuario(String login, String nomeJogo, int score, boolean zerou)throws SteamException{
+		
+		if(containUsuario(login)){
+			Usuario usuario = bancoUsuarios.getUsuario(login);
+
+			return usuario.punir(nomeJogo, score, zerou);
 
 		}else{
 			return false;
@@ -182,35 +163,24 @@ public class LojaController {
 		return saida;
 	}
 
-	/**
-	 * Metodo hashCode que compara se duas lojas sao iguais atraves da quantidade de usuarios
-	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result
-				+ ((usuarios == null) ? 0 : usuarios.hashCode());
+				+ ((bancoUsuarios == null) ? 0 : bancoUsuarios.hashCode());
 		return result;
 	}
 
-	/**
-	 * Metodo equals que compara se duas lojas sao iguais atraves da quantidade de usuarios
-	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		LojaController other = (LojaController) obj;
-		if (usuarios == null) {
-			if (other.usuarios != null)
-				return false;
-		} else if (!usuarios.equals(other.usuarios))
-			return false;
+		
+		if(obj instanceof LojaController){
+			
+			LojaController outroController = (LojaController) obj;
+			
+			return outroController.bancoUsuarios.equals(bancoUsuarios);
+		}
 		return true;
 	}
 
