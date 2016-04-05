@@ -1,62 +1,62 @@
 package iusuarios;
 
-import banco.dados.JogosComprados;
 import enumerations.ExperienciaUsuario;
-import exceptions.DadosInvalidosException;
+import enumerations.Jogabilidade;
 import exceptions.ExcecoesP2cg;
 import exceptions.NumeroInvalidoException;
-import exceptions.StringException;
+import exceptions.ObjetoinvalidoException;
 import jogos.Jogo;
 
 public class UsuarioVeterano implements TipoUsuarioIF{
-
-	private String nome;
-	private String login;
-	private JogosComprados jogos;
-	private double quantDinheiro;
-	private int xp2;
 	
+	private final int RECOMPENSA_ONLINE;
+	private final int RECOMPENSA_COOPERATIVO;
 	
-	public UsuarioVeterano(String nome, String login) throws StringException{
-		ExcecoesP2cg.verificaNome(nome);
-		ExcecoesP2cg.verificaLogin(login);
-
-		this.nome = nome;
-		this.login = login;
-		this.jogos = new JogosComprados();
-		this.quantDinheiro = 0.0;
-		this.xp2 = 0;
+	private final int PUNICAO_COOPERATIVO;
+	private final int PUNICAO_COMPETITIVO;
+	
+	public UsuarioVeterano(){
+		
+		this.RECOMPENSA_ONLINE = 10;
+		this.RECOMPENSA_COOPERATIVO = 20;
+		
+		this.PUNICAO_COMPETITIVO = 20;
+		this.PUNICAO_COOPERATIVO = 20;
 	}
+	
 	@Override
-	public boolean comprar(Jogo jogo) throws DadosInvalidosException{
-		
+	public double comprar(Jogo jogo) throws ObjetoinvalidoException{
+
 		ExcecoesP2cg.verificaJogo(jogo);
-		
-		if(quantDinheiro >= jogo.getPreco()){
-			
-			retiraDinheiro(calculaDesconto(jogo));
-			
-			calculaXp2Compra(jogo);
-			
-			return jogos.adicionaJogo(jogo);
-		}
-		return false;
+
+		return calculaDesconto(jogo);
 	}
 	
-	private void calculaXp2Compra(Jogo jogo) throws NumeroInvalidoException{
+	public int calculaXp2Compra(double precoJogo) throws NumeroInvalidoException{
 		
 		int pontosxp2Noob = ExperienciaUsuario.VETERANO.getPontuacao();
-		int xp2Recebido = (int) (jogo.getPreco() * pontosxp2Noob);
+		int xp2Recebido = (int) (precoJogo * pontosxp2Noob);
 		
-		aumentaXp2(xp2Recebido);
+		return xp2Recebido;
 	}
+
+	@Override
+	public int recompensar(Jogo jogo) throws ObjetoinvalidoException{
 	
+		ExcecoesP2cg.verificaJogo(jogo);
 	
-	private void aumentaXp2(int xp2){
-		this.xp2 += xp2;
+		int xp2 = calculaRecompensa(jogo);
+		
+		return xp2;
 	}
-	private void retiraDinheiro(double dinheiro){
-		this.quantDinheiro -= dinheiro;
+
+	@Override
+	public int punir(Jogo jogo) throws ObjetoinvalidoException{
+		ExcecoesP2cg.verificaJogo(jogo);
+	
+		int xp2 = calculaPunicao(jogo);
+	
+		return xp2;
 	}
 
 	private double calculaDesconto(Jogo jogo){
@@ -65,15 +65,34 @@ public class UsuarioVeterano implements TipoUsuarioIF{
 		double desconto = jogo.getPreco() * porcentdesconto;
 		return desconto;
 	}
-	@Override
-	public void recompensar(String nomeJogo, int score, boolean zerou) {
-		// TODO Auto-generated method stub
-		
+	
+
+	private int calculaRecompensa(Jogo jogo){
+
+		int recompensa = 0;
+
+		if(jogo.containJogabilidade(Jogabilidade.ONLLINE)){
+			recompensa += RECOMPENSA_ONLINE;
+		}
+
+		if(jogo.containJogabilidade(Jogabilidade.COOPERATIVO)){
+			recompensa += RECOMPENSA_COOPERATIVO;
+		}
+
+		return recompensa;
 	}
 
-	@Override
-	public void punir(String nomeJogo, int score, boolean zerou) {
-		// TODO Auto-generated method stub
-		
+	private int calculaPunicao(Jogo jogo){
+		int punicao = 0;
+
+		if(jogo.containJogabilidade(Jogabilidade.COOPERATIVO)){
+			punicao += PUNICAO_COOPERATIVO;
+		}
+
+		if(jogo.containJogabilidade(Jogabilidade.COMPETITIVO)){
+			punicao += PUNICAO_COMPETITIVO;
+		}
+
+		return punicao;
 	}
 }

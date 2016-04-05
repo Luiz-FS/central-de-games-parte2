@@ -3,6 +3,7 @@ package exceptions;
 
 import enumerations.ExperienciaUsuario;
 import enumerations.Jogabilidade;
+import iusuarios.TipoUsuarioIF;
 import jogos.Jogo;
 import usuarios.Usuario;
 
@@ -97,6 +98,13 @@ public class ExcecoesP2cg {
 			throw new NumeroInvalidoException("Quantidade de dinheiro nao pode ser negativa."); 
 		}
 	}
+	
+	public static void verificaCompra(double dinheiro, double precoJogo)throws LogicaException{
+		
+		if(dinheiro < precoJogo){
+			throw new LogicaException("Dinheiro insuficiente!");
+		}
+	}
 
 	/**
 	 * Esse metodo verifica se o jogo passado eh valido
@@ -129,7 +137,7 @@ public class ExcecoesP2cg {
 	 * @param usuario - recebe o usuario
 	 * @throws DadosInvalidosException - gera uma exception caso o usuario seja veterano
 	 */
-	public static void verificaUsuarioVeterano(Usuario usuario)throws SteamException{
+	public static void verificaUsuarioVeterano(TipoUsuarioIF usuario)throws SteamException{
 
 		if(usuario == null){
 			throw new ObjetoinvalidoException("Usuario nao existe");
@@ -137,7 +145,20 @@ public class ExcecoesP2cg {
 		
 		String esperiencia = usuario.getClass().getSimpleName();
 		
-		if(esperiencia.equalsIgnoreCase("veterano")){
+		if(esperiencia.equalsIgnoreCase("usuarioveterano")){
+			throw new LogicaException("Usuario ja eh veterano");
+		}
+	}
+	
+	public static void verificaUsuarioNoob(TipoUsuarioIF usuario)throws SteamException{
+
+		if(usuario == null){
+			throw new ObjetoinvalidoException("Usuario nao existe");
+		}
+		
+		String esperiencia = usuario.getClass().getSimpleName();
+		
+		if(esperiencia.equalsIgnoreCase("usuarionoob")){
 			throw new LogicaException("Usuario ja eh veterano");
 		}
 	}
@@ -148,10 +169,16 @@ public class ExcecoesP2cg {
 	 * @param xp2 - recebe o xp2
 	 * @throws NumeroInvalidoException - gera uma exception caso o xp2 seja negativo
 	 */
-	public static void verificaXp2(int xp2)throws NumeroInvalidoException{
+	public static void verificaMinXp2(int xp2)throws LogicaException{
 		
-		if(xp2 < 0)
-			throw new NumeroInvalidoException("Xp2 invalido!");
+		if(xp2 < 1000)
+			throw new LogicaException("Xp2 insuficiante!");
+	}
+	
+	public static void verificaMaxXp2(int xp2)throws LogicaException{
+		
+		if(xp2 >= 1000)
+			throw new LogicaException("Faixa limite de xp2 estourada!");
 	}
 	
 	/**
