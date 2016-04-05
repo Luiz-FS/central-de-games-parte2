@@ -1,3 +1,4 @@
+/* 115111424 - LUIZ FERNANDO DA SILVA: LAB 6 - Turma 3 */
 package usuarios;
 
 import util.ExcecoesP2cg;
@@ -8,6 +9,11 @@ import exceptions.SteamException;
 import exceptions.StringException;
 import jogos.Jogo;
 
+/**
+ * 
+ * @author Luiz Fernando da Silva
+ *
+ */
 public class Usuario {
 
 
@@ -113,12 +119,27 @@ public class Usuario {
 		statusUsuario();
 	}
 
+	/**
+	 * Esse metodo reduz o xp2(experiencia acumulada) do usuario 
+	 * 
+	 * @param xp2 - recebe o xp2 a ser removido
+	 * @throws NumeroInvalidoException - gera uma exception caso as entradas sejam invalidas
+	 */
 	private void reduzXp2(int xp2){
 
 		this.xp2 -= xp2;
 		statusUsuario();
 	}
 
+	/**
+	 * Esse metodo recompensa o usuario por uma jogada
+	 * 
+	 * @param nomeJogo - recebe o nome do jogo
+	 * @param score - recebe o score atinjido
+	 * @param zerou - recebe um boolean indicando se o jogo foi zerado ou nao
+	 * @return - retorna um boolean indicando se a operacao foi realizada com sucesso
+	 * @throws SteamException - gera uma exception caso as entradas sejam invalidas
+	 */
 	public boolean recompensar(String nomeJogo, int score, boolean zerou)throws SteamException{
 		ExcecoesP2cg.verificaNome(nomeJogo);
 		ExcecoesP2cg.verificaScore(score);
@@ -137,6 +158,11 @@ public class Usuario {
 		return false;
 	}
 
+	/**
+	 * Esse metodo verifica o status do usuario
+	 * caso possua xp2 suficiente sera feito um upgrade
+	 * caso contrario sera feito um downgrade
+	 */
 	private void statusUsuario(){
 		if(this.xp2 >= LIMITE_UP_DOWN){
 			upgrade();
@@ -147,6 +173,15 @@ public class Usuario {
 		}
 	}
 
+	/**
+	 * Esse metodo puni o usuario por uma jogada
+	 * 
+	 * @param nomeJogo - recebe o nome do jogo
+	 * @param score - recebe o score atinjido
+	 * @param zerou - recebe um boolean indicando se o jogo foi zerado ou nao
+	 * @return - retorna um boolean indicando se a operacao foi realizada com sucesso
+	 * @throws SteamException - gera uma exception caso as entradas sejam invalidas
+	 */
 	public boolean punir(String nomeJogo, int score, boolean zerou)throws SteamException{
 		ExcecoesP2cg.verificaNome(nomeJogo);
 		ExcecoesP2cg.verificaScore(score);
@@ -175,6 +210,11 @@ public class Usuario {
 		return jogos.totalPrecoJogos();
 	}
 
+	/**
+	 * Esse metodo realiza o upgrade do usuario
+	 * 
+	 * @return - retorna um boolean indicando se a operacao foi realizada com sucesso
+	 */
 	private boolean upgrade(){
 
 		if(ExcecoesP2cg.verificaUsuarioVeterano(tipoUsuario)){
@@ -187,6 +227,11 @@ public class Usuario {
 		}
 	}
 
+	/**
+	 * Esse metodo realiza o downgrade do usuario
+	 * 
+	 * @return - retorna um boolean indicando se a operacao foi realizada com sucesso
+	 */
 	private boolean downgrade(){
 
 		if(ExcecoesP2cg.verificaUsuarioNoob(this.tipoUsuario)){

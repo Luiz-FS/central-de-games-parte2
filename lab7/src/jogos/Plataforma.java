@@ -21,6 +21,7 @@ public class Plataforma extends Jogo{
 	 * 
 	 * @param nome - recebe o nome do jogo
 	 * @param preco - recebe o preco do jogo
+	 * @param jogabilidades recebe as jogabilidades a serem adicionadas
 	 * @throws DadosInvalidosException - gera uma exception caso as entradas sejam invalidas
 	 */
 	public Plataforma(String nome, double preco, List<Jogabilidade> jogabilidades)throws DadosInvalidosException {
@@ -28,7 +29,7 @@ public class Plataforma extends Jogo{
 	}
 	
 	/**
-	 * Esse metodo sobrescreve a classe registra jogada da super classe jogo
+	 * Esse metodo sobrescreve a classe registra jogada da super classe jogo (chamada polimorfica)
 	 */
 	@Override
 	public int registraJogada(int score, boolean zerou)throws SteamException{
@@ -45,7 +46,7 @@ public class Plataforma extends Jogo{
 	
 	/**
 	 * Metodo toString que retorna um string contendo
-	 * O nome e o toString da super classe jogo
+	 * O nome e o toString da super classe jogo (chamada plimorfica)
 	 */
 	@Override
 	public String toString(){

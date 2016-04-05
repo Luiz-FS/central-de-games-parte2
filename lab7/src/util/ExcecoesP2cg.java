@@ -4,7 +4,6 @@ package util;
 import enumerations.ExperienciaUsuario;
 import enumerations.Jogabilidade;
 import exceptions.ConstanteException;
-import exceptions.DadosInvalidosException;
 import exceptions.LogicaException;
 import exceptions.NumeroInvalidoException;
 import exceptions.ObjetoinvalidoException;
@@ -140,8 +139,8 @@ public class ExcecoesP2cg {
 	/**
 	 * Esse metedo verifica se um determinado usuario eh veterano
 	 * 
-	 * @param usuario - recebe o usuario
-	 * @throws DadosInvalidosException - gera uma exception caso o usuario seja veterano
+	 * @param usuario - recebe o tipo do usuario
+	 * @return - retorna um bolean indicando se o usuario eh veterano ou nao
 	 */
 	public static boolean verificaUsuarioVeterano(TipoUsuarioIF usuario){
 		
@@ -152,7 +151,13 @@ public class ExcecoesP2cg {
 			
 		}return false;
 	}
-	
+
+	/**
+	 * Esse metedo verifica se um determinado usuario eh noob
+	 * 
+	 * @param usuario - recebe o tipo do usuario
+	 * @return - retorna um bolean indicando se o usuario eh noob ou nao
+	 */
 	public static boolean verificaUsuarioNoob(TipoUsuarioIF usuario){
 		
 		String esperiencia = usuario.getClass().getSimpleName();
@@ -166,7 +171,7 @@ public class ExcecoesP2cg {
 	}
 	
 	/**
-	 * Esse metodo verifica se o xp2 passado eh invalido
+	 * Esse metodo verifica se o xp2 esta na faixa minima para fazer upgrade
 	 * 
 	 * @param xp2 - recebe o xp2
 	 * @throws NumeroInvalidoException - gera uma exception caso o xp2 seja negativo
@@ -180,7 +185,13 @@ public class ExcecoesP2cg {
 			return true;
 		}
 	}
-	
+
+	/**
+	 * Esse metodo verifica se o xp2 esta na faixa maxima para fazer downgrade
+	 * 
+	 * @param xp2 - recebe o xp2
+	 * @throws NumeroInvalidoException - gera uma exception caso o xp2 seja negativo
+	 */
 	public static boolean verificaMaxXp2(int xp2){
 		
 		if(xp2 >= 1000){

@@ -5,7 +5,6 @@ import java.util.List;
 
 import util.ExcecoesP2cg;
 import enumerations.Jogabilidade;
-import exceptions.ConstanteException;
 import exceptions.DadosInvalidosException;
 import exceptions.SteamException;
 
@@ -28,6 +27,7 @@ public abstract class Jogo {
 	 * 
 	 * @param nome - recebe o nome do jogo
 	 * @param preco - recebe o preco do jogo
+	 * @param jogabilidades - recebe as jogabilidades do jogo
 	 * @throws DadosInvalidosException - gera uma exception caso as entradas sejam invalidas
 	 */
 	public Jogo(String nome, double preco, List<Jogabilidade> jogabilidades)throws DadosInvalidosException{
@@ -65,19 +65,6 @@ public abstract class Jogo {
 		
 		int xp2extra = 0;
 		return xp2extra;
-	}
-	
-	/**
-	 * Esse metodo adiciona jogabilidades ao jogo
-	 * 
-	 * @param jogabilidade - recebe a jogabilidade que sera adicionada
-	 * @return - retorna um boolean indicando se o registro foi feito ou nao
-	 * @throws ConstanteException - gera uma exception caso as entradas sejam invalidas
-	 */
-	public boolean adicionaJogabilidade(Jogabilidade jogabilidade)throws ConstanteException{
-		
-		ExcecoesP2cg.verificaJogabilidade(jogabilidade);
-		return jogabilidades.add(jogabilidade);
 	}
 
 	/**
@@ -137,6 +124,12 @@ public abstract class Jogo {
 		return vezesZeradas;
 	}
 	
+	/**
+	 * Esse metodo verifica se uma determianda jogabilidade existe no jogo
+	 * 
+	 * @param jogabilidade - recebe a jogabilidade a ser buscada
+	 * @return retorna um boolean indicando se a jobabilidade existe ou nao
+	 */
 	public boolean containJogabilidade(Jogabilidade jogabilidade){
 		
 		for(Jogabilidade jogabilidades : jogabilidades){
