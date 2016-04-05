@@ -1,32 +1,24 @@
-/* 115111424 - LUIZ FERNANDO DA SILVA: LAB 6 - Turma 3 */
 package usuarios;
 
-import java.text.DecimalFormat;
-import java.util.HashSet;
-import java.util.Set;
-
 import util.ExcecoesP2cg;
-import jogos.Jogo;
-import enumerations.Jogabilidade;
+import banco.dados.JogosComprados;
 import exceptions.DadosInvalidosException;
 import exceptions.NumeroInvalidoException;
-import exceptions.ObjetoinvalidoException;
 import exceptions.SteamException;
 import exceptions.StringException;
+import jogos.Jogo;
 
-/**
- * 
- * 
- * @author Luiz Fernando da Silva
- *
- */
-public abstract class Usuario{
+public class Usuario {
+
 
 	private String nome;
 	private String login;
-	private Set<Jogo> jogosComprados;
+	private TipoUsuarioIF tipoUsuario;
+	private JogosComprados jogos;
 	private double quantDinheiro;
 	private int xp2;
+
+	private final int LIMITE_UP_DOWN = 1000;
 
 	/**
 	 * Construtor da classe usuario
@@ -42,22 +34,10 @@ public abstract class Usuario{
 
 		this.nome = nome;
 		this.login = login;
-		this.jogosComprados = new HashSet<Jogo>();
+		this.tipoUsuario = new UsuarioNoob();
+		this.jogos = new JogosComprados();
 		this.quantDinheiro = 0.0;
 		this.xp2 = 0;
-	}
-
-	/**
-	 * Esse metodo adiciona um jogo a colecao de jogos do usuario
-	 * 
-	 * @param jogo - recebe o jogo que sera adicionado
-	 * @return - retorna um boolean indicando se o jogo foi adicionado ou nao
-	 * @throws ObjetoinvalidoException - gera uma exception caso a entrada seja invalida
-	 */
-	public boolean addJogo(Jogo jogo)throws ObjetoinvalidoException{
-
-		ExcecoesP2cg.verificaJogo(jogo);
-		return this.jogosComprados.add(jogo);
 	}
 
 	/**
@@ -67,7 +47,24 @@ public abstract class Usuario{
 	 * @return - retorna um boolean indicando se o jogo foi comprado ou nao
 	 * @throws DadosInvalidosException - gera uma exception caso a entrada seja invalida
 	 */
-	public abstract boolean compraJogo(Jogo jogo)throws DadosInvalidosException;
+	public boolean compraJogo(Jogo jogo)throws SteamException{
+
+		if(! jogos.containJogo(jogo)){
+
+			double precoJogo = tipoUsuario.comprar(jogo);
+			ExcecoesP2cg.verificaCompra(this.quantDinheiro, precoJogo);
+
+			retiraDinheiro(precoJogo);
+			int xp2 = tipoUsuario.calculaXp2Compra(jogo.getPreco());
+			aumentaXp2(xp2);
+
+			jogos.adicionaJogo(jogo);
+			return true;
+
+		}else{
+			return false;
+		}
+	}
 
 	/**
 	 * Esse metodo adiciona dinheiro a conta do usuario
@@ -82,67 +79,14 @@ public abstract class Usuario{
 	}
 
 	/**
-	 * Esse metodo adiciona uma jogabilidade ao um determinado jogo da colecao de jogos do usuario
-	 * 
-	 * @param nomeJogo - recebe o nome do jogo
-	 * @param jogabilidade - recebe a jogabilidade que sera adicionada
-	 * @throws SteamException - - gera uma exception caso as entradas sejam invalidas
-	 */
-	public void adicionaJogabilidade(String nomeJogo, Jogabilidade jogabilidade)throws SteamException{
-		if(containJogo(nomeJogo)){
-
-			Jogo jogo = pegaJogo(nomeJogo);
-
-			ExcecoesP2cg.verificaJogabilidade(jogabilidade);
-			jogo.adicionaJogabilidade(jogabilidade);
-		}
-	}
-
-	/**
-	 * Esse metodo pega um jogo atraves do nome do mesmo
-	 * 
-	 * @param nomeJogo - recebe o nome do jogo
-	 * @return - retorna o jogo caso exista
-	 * @throws DadosInvalidosException - gera uma exception caso as entradas sejam invalidas
-	 */
-	private Jogo pegaJogo(String nomeJogo)throws DadosInvalidosException{
-		ExcecoesP2cg.verificaNome(nomeJogo);
-
-		for(Jogo jogo : this.jogosComprados){
-			if(nomeJogo.equalsIgnoreCase(jogo.getNome())){
-				return jogo;
-			}
-		}
-
-		throw new ObjetoinvalidoException("Jogo nao existe!");
-	}
-	
-	/**
 	 * Esse metodo verifica se uma jogo existe na lista de jogos
 	 * 
 	 * @param nomeJogo - recebe o nome do jogo
 	 * @return - retorna um boolean indicando se o jogo existe ou nao
 	 * @throws StringException - gera uma exception caso as entradas sejam invalidas
 	 */
-	public boolean containJogo(String nomeJogo)throws StringException{
-		ExcecoesP2cg.verificaNome(nomeJogo);
-		for(Jogo jogo : this.jogosComprados){
-
-			if(nomeJogo.equalsIgnoreCase(jogo.getNome())){
-				return true;
-			}
-		}
-		return false;
-	}
-
-	/**
-	 * Esse metodo retorna a lista de jogos do usuario
-	 * 
-	 * @return  - retorna uma copia da lista de jogos
-	 */
-	public Set<Jogo> getJogos(){
-		Set<Jogo> jogos = new HashSet<Jogo>(this.jogosComprados);
-		return jogos;
+	public boolean containJogo(String nomeJogo){
+		return jogos.containJogo(nomeJogo);
 	}
 
 	/**
@@ -151,7 +95,7 @@ public abstract class Usuario{
 	 * @param quantDinheiro - recebe q quantidade de dinheiro que sera removida
 	 * @throws DadosInvalidosException - - gera uma exception caso as entradas sejam invalidas
 	 */
-	protected void retiraDinehiro(double quantDinheiro)throws DadosInvalidosException{
+	private void retiraDinheiro(double quantDinheiro)throws DadosInvalidosException{
 
 		ExcecoesP2cg.verificaDinheiro(quantDinheiro);
 		this.quantDinheiro -= quantDinheiro;
@@ -163,43 +107,64 @@ public abstract class Usuario{
 	 * @param xp2 - recebe o xp2 a ser adicionado
 	 * @throws NumeroInvalidoException - gera uma exception caso as entradas sejam invalidas
 	 */
-	public void aumentaXp2(int xp2)throws NumeroInvalidoException{
-		ExcecoesP2cg.verificaXp2(xp2);
+	private void aumentaXp2(int xp2){
+
 		this.xp2 += xp2;
+		statusUsuario();
 	}
 
-	/**
-	 * Esse metodo registra uma jogada feita pelo usuario
-	 * 
-	 * @param nomeJogo - recebe o nome do jogo
-	 * @param score - recebe o score da jogada
-	 * @param zerou - recebe um boolean indicando se zerou ou nao
-	 * @return - retorna um boolean informando se a jogada foi registrada com sucesso
-	 * @throws SteamException
-	 */
-	public boolean registraJogada(String nomeJogo, int score, boolean zerou)throws SteamException{
+	private void reduzXp2(int xp2){
 
+		this.xp2 -= xp2;
+		statusUsuario();
+	}
+
+	public boolean recompensar(String nomeJogo, int score, boolean zerou)throws SteamException{
 		ExcecoesP2cg.verificaNome(nomeJogo);
 		ExcecoesP2cg.verificaScore(score);
-		
+
 		if(containJogo(nomeJogo)){
-			
-			for(Jogo jogo : this.jogosComprados){
 
-				if(nomeJogo.equalsIgnoreCase(jogo.getNome())){
-					int xp2 = jogo.registraJogada(score, zerou);
+			Jogo jogo = jogos.pegaJogo(nomeJogo);
 
-					aumentaXp2(xp2);
-					return true;
-				}
-			}
+			int xp2 = jogo.registraJogada(score, zerou);
+			xp2 += tipoUsuario.recompensar(jogo);
+
+			aumentaXp2(xp2);
+
+			return true;
 		}
 		return false;
 	}
-	
-	public abstract boolean recompensar(String nomeJogo, int score, boolean zerou);
-	
-	public abstract boolean punir(String nomeJogo, int score, boolean zerou);
+
+	private void statusUsuario(){
+		if(this.xp2 >= LIMITE_UP_DOWN){
+			upgrade();
+		}
+
+		if(this.xp2 < LIMITE_UP_DOWN){
+			downgrade();
+		}
+	}
+
+	public boolean punir(String nomeJogo, int score, boolean zerou)throws SteamException{
+		ExcecoesP2cg.verificaNome(nomeJogo);
+		ExcecoesP2cg.verificaScore(score);
+
+		if(containJogo(nomeJogo)){
+
+			Jogo jogo = jogos.pegaJogo(nomeJogo);
+
+			aumentaXp2(jogo.registraJogada(score, zerou));
+			
+			int xp2 = tipoUsuario.punir(jogo);
+
+			reduzXp2(xp2);
+
+			return true;
+		}
+		return false;
+	}
 
 	/**
 	 * Esse metodo calcula o total de preco dos jogos comprados pelo usuario
@@ -207,13 +172,31 @@ public abstract class Usuario{
 	 * @return - retorna um double indicando o total de preco dos jogos
 	 */
 	public double calculaTotalPrecoJogos(){
-		double totalPreco = 0.0;
+		return jogos.totalPrecoJogos();
+	}
 
-		for(Jogo jogo : this.jogosComprados){
-			totalPreco += jogo.getPreco();
+	private boolean upgrade(){
+
+		if(ExcecoesP2cg.verificaUsuarioVeterano(tipoUsuario)){
+
+			tipoUsuario = new UsuarioVeterano();
+			return true;
+
+		}else{
+			return false;
 		}
+	}
 
-		return totalPreco;
+	private boolean downgrade(){
+
+		if(ExcecoesP2cg.verificaUsuarioNoob(this.tipoUsuario)){
+
+			tipoUsuario = new UsuarioNoob();
+			return true;
+
+		}else{
+			return false;
+		}
 	}
 
 	/**
@@ -251,16 +234,16 @@ public abstract class Usuario{
 	public int getXp2(){
 		return this.xp2;
 	}
-	
+
 	/**
 	 * Esse metodo retorna a experiencia do usuario(noob ou veterano)
 	 * 
 	 * @return - retorna uma string informando a experiencia do usuario
 	 */
 	//public String getExperiencia(){
-		//return this.experiencia;
+	//return this.experiencia;
 	//}
-	
+
 
 	/**
 	 * Metodo hashcode que verifica se dois usuarios sao iguais atraves do nome e login
@@ -306,19 +289,10 @@ public abstract class Usuario{
 	@Override
 	public String toString(){
 
-		final String FIM_DE_LINHA = System.lineSeparator();
-		DecimalFormat df = new DecimalFormat("0.00");
+		String saida = jogos.toString();
 
-		String saida = "Lista de jogos:" + FIM_DE_LINHA;
-
-		for(Jogo jogo : this.jogosComprados){
-
-			saida += jogo + FIM_DE_LINHA
-					+ "Total de preco dos jogos: R$ " + df.format(calculaTotalPrecoJogos())
-					+ FIM_DE_LINHA + FIM_DE_LINHA
-					+ "--------------------------------------------------------------------"
-					+ FIM_DE_LINHA;
-		}
 		return saida;
 	}
+
+
 }

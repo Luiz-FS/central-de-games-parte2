@@ -8,10 +8,9 @@ import exceptions.DadosInvalidosException;
 import exceptions.LogicaException;
 import exceptions.NumeroInvalidoException;
 import exceptions.ObjetoinvalidoException;
-import exceptions.SteamException;
 import exceptions.StringException;
-import iusuarios.TipoUsuarioIF;
 import jogos.Jogo;
+import usuarios.TipoUsuarioIF;
 import usuarios.Usuario;
 
 public class ExcecoesP2cg {
@@ -144,29 +143,25 @@ public class ExcecoesP2cg {
 	 * @param usuario - recebe o usuario
 	 * @throws DadosInvalidosException - gera uma exception caso o usuario seja veterano
 	 */
-	public static void verificaUsuarioVeterano(TipoUsuarioIF usuario)throws SteamException{
-
-		if(usuario == null){
-			throw new ObjetoinvalidoException("Usuario nao existe");
-		}
+	public static boolean verificaUsuarioVeterano(TipoUsuarioIF usuario){
 		
 		String esperiencia = usuario.getClass().getSimpleName();
 		
 		if(esperiencia.equalsIgnoreCase("usuarioveterano")){
-			throw new LogicaException("Usuario ja eh veterano");
-		}
+			return true;
+			
+		}return false;
 	}
 	
-	public static void verificaUsuarioNoob(TipoUsuarioIF usuario)throws SteamException{
-
-		if(usuario == null){
-			throw new ObjetoinvalidoException("Usuario nao existe");
-		}
+	public static boolean verificaUsuarioNoob(TipoUsuarioIF usuario){
 		
 		String esperiencia = usuario.getClass().getSimpleName();
 		
 		if(esperiencia.equalsIgnoreCase("usuarionoob")){
-			throw new LogicaException("Usuario ja eh veterano");
+			return true;
+			
+		}else{
+			return false;
 		}
 	}
 	
@@ -176,16 +171,24 @@ public class ExcecoesP2cg {
 	 * @param xp2 - recebe o xp2
 	 * @throws NumeroInvalidoException - gera uma exception caso o xp2 seja negativo
 	 */
-	public static void verificaMinXp2(int xp2)throws LogicaException{
+	public static boolean verificaMinXp2(int xp2){
 		
-		if(xp2 < 1000)
-			throw new LogicaException("Xp2 insuficiante!");
+		if(xp2 < 1000){
+			return false;
+			
+		}else{
+			return true;
+		}
 	}
 	
-	public static void verificaMaxXp2(int xp2)throws LogicaException{
+	public static boolean verificaMaxXp2(int xp2){
 		
-		if(xp2 >= 1000)
-			throw new LogicaException("Faixa limite de xp2 estourada!");
+		if(xp2 >= 1000){
+			return true;
+			
+		}else{
+			return false;
+		}
 	}
 	
 	/**

@@ -1,99 +1,111 @@
-/* 115111424 - LUIZ FERNANDO DA SILVA: LAB 6 - Turma 3 */
 package usuarios;
 
 import util.ExcecoesP2cg;
-import enumerations.ExperienciaUsuario;
-import exceptions.DadosInvalidosException;
+import enumerations.Jogabilidade;
 import exceptions.NumeroInvalidoException;
-import exceptions.StringException;
+import exceptions.ObjetoinvalidoException;
 import jogos.Jogo;
 
-/**
- * 
- * @author Luiz Fernando da Silva
- *
- */
-public class UsuarioNoob extends Usuario {
+public class UsuarioNoob implements TipoUsuarioIF{
 
-	/**
-	 * Contrutor da classe usuario noob
-	 * 
-	 * @param nome - recebe o nome do usuario
-	 * @param login - recebe o login do usuario
-	 * @throws DadosInvalidosException - gera uma exception caso as entradas sejam invalidas
-	 */
-	public UsuarioNoob(String nome, String login) throws StringException{
-		super(nome, login);
+	private final int RECOMPENSA_OFFLINE;
+	private final int RECOMPENSA_MULTIPLAYER;
+
+	private final int PUNICAO_ONLINE;
+	private final int PUNICAO_COOPERATIVO;
+	private final int PUNICAO_COMPETITIVO;
+	
+	private final double DESCONTO;
+	private final int XP2_EXTRA;
+
+	public UsuarioNoob(){
+
+		this.RECOMPENSA_OFFLINE = 30;
+		this.RECOMPENSA_MULTIPLAYER = 10;
+
+		this.PUNICAO_ONLINE = 10;
+		this.PUNICAO_COOPERATIVO = 50;
+		this.PUNICAO_COMPETITIVO = 20;
+		
+		this.DESCONTO = 0.9;
+		this.XP2_EXTRA = 10;
 	}
 
-	/**
-	 * Esse metodo sobrescreve o metodo compra jogo da classe usuario
-	 */
-	public boolean compraJogo(Jogo jogo)throws DadosInvalidosException{
-		
+	@Override
+	public double comprar(Jogo jogo) throws ObjetoinvalidoException{
+
 		ExcecoesP2cg.verificaJogo(jogo);
-		
-		if(super.getQuantDinrheiro() >= jogo.getPreco()){
-			
-			super.retiraDinehiro(calculaDesconto(jogo));
-			
-			calculaXp2Compra(jogo);
-			
-			return super.addJogo(jogo);
-		}
-		return false;
+
+		return calculaDesconto(jogo);
 	}
 
-	/**
-	 * Esse metodo calcula o xp2(experiencia acumulada) que sera adicionado ao usuario
-	 * 
-	 * @param jogo - recebe o jogo que sera comprado
-	 * @throws NumeroInvalidoException - gera uma exception caso a entrada seja invalida
-	 */
-	private void calculaXp2Compra(Jogo jogo) throws NumeroInvalidoException{
+	@Override
+	public int recompensar(Jogo jogo) throws ObjetoinvalidoException{
+
+		ExcecoesP2cg.verificaJogo(jogo);
+
+		int xp2 = calculaRecompensa(jogo);
 		
-		int pontosxp2Noob = ExperienciaUsuario.NOOB.getPontuacao();
-		int xp2Recebido = (int)jogo.getPreco() * pontosxp2Noob;
-		
-		super.aumentaXp2(xp2Recebido);
+		return xp2;
 	}
 
-	/**
-	 * Esse metodo calcula os desconto que o usuario tera na hora da compra
-	 * 
-	 * @param jogo - recebe o jogo que sera comprado
-	 * @return
-	 */
+	@Override
+	public int punir(Jogo jogo) throws ObjetoinvalidoException{
+		ExcecoesP2cg.verificaJogo(jogo);
+
+		int xp2 = calculaPunicao(jogo);
+
+		return xp2;
+	}
+
+	public int calculaXp2Compra(double precoJogo) throws NumeroInvalidoException{
+
+		int pontosxp2Noob = XP2_EXTRA;
+		int xp2Recebido = (int) (precoJogo * pontosxp2Noob);
+		
+		return xp2Recebido;
+	}
+
+
+
 	private double calculaDesconto(Jogo jogo){
-		double porcentdesconto = ExperienciaUsuario.NOOB.getDesconto();
+		double porcentdesconto = DESCONTO;
 
 		double desconto = jogo.getPreco() * porcentdesconto;
 		return desconto;
 	}
-	
-	/**
-	 * Metodo toString que retorna um string contendo o login
-	 * O nome e o toString da super classe Usuario
-	 */
-	@Override
-	public String toString(){
-		
-		final String FIM_DE_LINHA = System.lineSeparator();
-		String saida = "Jogador Noob: " + super.getLogin() + FIM_DE_LINHA
-				       + super.getNome() + " - " + super.getXp2() + " xp2" + FIM_DE_LINHA
-				       + super.toString();
-		return saida;
+
+	private int calculaRecompensa(Jogo jogo){
+
+		int recompensa = 0;
+
+		if(jogo.containJogabilidade(Jogabilidade.OFFLINE)){
+			recompensa += RECOMPENSA_OFFLINE;
+		}
+
+		if(jogo.containJogabilidade(Jogabilidade.MULTIPLAYER)){
+			recompensa += RECOMPENSA_MULTIPLAYER;
+		}
+
+		return recompensa;
 	}
 
-	@Override
-	public boolean recompensar(String nomeJogo, int score, boolean zerou) {
-		// TODO Auto-generated method stub
-		return false;
+	private int calculaPunicao(Jogo jogo){
+		int punicao = 0;
+
+		if(jogo.containJogabilidade(Jogabilidade.ONLLINE)){
+			punicao += PUNICAO_ONLINE;
+		}
+
+		if(jogo.containJogabilidade(Jogabilidade.COOPERATIVO)){
+			punicao += PUNICAO_COOPERATIVO;
+		}
+
+		if(jogo.containJogabilidade(Jogabilidade.COMPETITIVO)){
+			punicao += PUNICAO_COMPETITIVO;
+		}
+
+		return punicao;
 	}
 
-	@Override
-	public boolean punir(String nomeJogo, int score, boolean zerou) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 }

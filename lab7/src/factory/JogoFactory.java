@@ -5,6 +5,7 @@ import java.util.List;
 import enumerations.Jogabilidade;
 import enumerations.TipoDeJogo;
 import exceptions.ConstanteException;
+import exceptions.DadosInvalidosException;
 import exceptions.SteamException;
 import jogos.Jogo;
 import jogos.Luta;
@@ -18,19 +19,37 @@ public class JogoFactory {
 		switch(tipo){
 		
 		case RPG:
-			Jogo jogoRpg = new Rpg(nomeJogo, preco, jogabilidades);
+			Jogo jogoRpg = criaJogoRpg(nomeJogo, preco, jogabilidades);
 			return jogoRpg;
 			
 		case PLATAFORMA:
-			Jogo jogoPlataforma = new Plataforma(nomeJogo, preco, jogabilidades);
+			Jogo jogoPlataforma = criaJogoPlataforma(nomeJogo, preco, jogabilidades);
 			return jogoPlataforma;
 			
 		case LUTA:
-			Jogo jogoLuta = new Luta(nomeJogo, preco, jogabilidades);
+			Jogo jogoLuta = criaJogoLuta(nomeJogo, preco, jogabilidades);
 			return jogoLuta;
 			
 		default:
 			throw new ConstanteException("Tipo de jogo inexistente!");
 		}
+	}
+	
+	public Jogo criaJogoRpg(String nomeJogo, double preco, List<Jogabilidade> jogabilidades)throws DadosInvalidosException{
+		Jogo jogo = new Rpg(nomeJogo, preco, jogabilidades);
+		
+		return jogo;
+	}
+	
+	public Jogo criaJogoLuta(String nomeJogo, double preco, List<Jogabilidade> jogabilidades)throws DadosInvalidosException{
+		Jogo jogo = new Luta(nomeJogo, preco, jogabilidades);
+		
+		return jogo;
+	}
+	
+	public Jogo criaJogoPlataforma(String nomeJogo, double preco, List<Jogabilidade> jogabilidades)throws DadosInvalidosException{
+		Jogo jogo = new Plataforma(nomeJogo, preco, jogabilidades);
+		
+		return jogo;
 	}
 }

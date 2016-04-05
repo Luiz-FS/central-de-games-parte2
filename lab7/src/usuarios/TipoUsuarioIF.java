@@ -1,4 +1,4 @@
-package iusuarios;
+package usuarios;
 
 import exceptions.NumeroInvalidoException;
 import exceptions.ObjetoinvalidoException;
