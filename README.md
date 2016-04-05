@@ -1,2 +1,2 @@
-# central-de-games-parte22
+# central-de-games-parte2
 Continuação do lab
