@@ -1,4 +1,4 @@
-/* 115111424 - LUIZ FERNANDO DA SILVA: LAB 6 - Turma 3 */
+/* 115111424 - LUIZ FERNANDO DA SILVA: LAB 7 - Turma 3 */
 package util;
 
 import enumerations.ExperienciaUsuario;
