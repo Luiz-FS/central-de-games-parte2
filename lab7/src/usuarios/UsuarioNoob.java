@@ -108,4 +108,10 @@ public class UsuarioNoob implements TipoUsuarioIF{
 		return punicao;
 	}
 
+	@Override
+	public String toString(){
+		String saida = "Jogador Noob";
+		
+		return saida;
+	}
 }

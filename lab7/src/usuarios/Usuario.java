@@ -278,8 +278,11 @@ public class Usuario {
 	 */
 	@Override
 	public String toString(){
-
-		String saida = jogos.toString();
+		final String FIM_DE_LINHA = System.lineSeparator();
+		
+		String saida = tipoUsuario + ": " + getLogin() + FIM_DE_LINHA
+					 + getNome() + " - " + getXp2() + " x2p" + FIM_DE_LINHA
+					 + jogos.toString();
 
 		return saida;
 	}

@@ -100,4 +100,11 @@ public class UsuarioVeterano implements TipoUsuarioIF{
 
 		return punicao;
 	}
+
+	@Override
+	public String toString(){
+		String saida = "Jogador Veterano";
+		
+		return saida;
+	}
 }
