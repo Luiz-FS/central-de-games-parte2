@@ -21,7 +21,8 @@ public class Luta extends Jogo{
 	 * Contrutor da classe jogo de luta
 	 * 
 	 * @param nome - recebe o nome de jogo
-	 * @param preco - receb o preco do jogo
+	 * @param preco - recebe o preco do jogo
+	 * @param jogabilidades recebe as jogabilidades a serem adicionadas
 	 * @throws DadosInvalidosException - gera uma exception caso as entradas sejam invalidas
 	 */
 	public Luta(String nome, double preco, List<Jogabilidade> jogabilidades)throws DadosInvalidosException{
@@ -29,7 +30,7 @@ public class Luta extends Jogo{
 	}
 
 	/**
-	 * Esse metodo sobrescreve o metodo registra jogada da classe Jogo
+	 * Esse metodo sobrescreve o metodo registra jogada da classe Jogo (chamada pilomorfica)
 	 */
 	@Override
 	public int registraJogada(int score, boolean zerou)throws SteamException{
@@ -45,7 +46,7 @@ public class Luta extends Jogo{
 
 	/**
 	 * Metodo toString que retorna um string contendo
-	 * O nome e o toString da super classe jogo
+	 * O nome e o toString da super classe jogo (chamada polimorfica)
 	 */
 	@Override
 	public String toString(){

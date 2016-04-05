@@ -21,6 +21,7 @@ public class Rpg extends Jogo{
 	 * 
 	 * @param nome - recebe o nome do jogo
 	 * @param preco - recebe o preco do jogo
+	 * @param jogabilidades recebe as jogabilidades a serem adicionadas
 	 * @throws DadosInvalidosException - gera uma exception caso as entradas sejam invalidas
 	 */
 	public Rpg(String nome, double preco, List<Jogabilidade> jogabilidades)throws DadosInvalidosException {
@@ -28,7 +29,7 @@ public class Rpg extends Jogo{
 	}
 	
 	/**
-	 * Esse metodo sobrescreve o metodo registra jogada da super classe jogo
+	 * Esse metodo sobrescreve o metodo registra jogada da super classe jogo (chamada polimorfica)
 	 */
 	@Override
 	public int registraJogada(int score, boolean zerou)throws SteamException{
@@ -39,7 +40,7 @@ public class Rpg extends Jogo{
 	
 	/**
 	 * Metodo toString que retorna um string contendo
-	 * O nome e o toString da super classe jogo
+	 * O nome e o toString da super classe jogo (chamada polimorfica)
 	 */
 	@Override
 	public String toString(){

@@ -41,6 +41,7 @@ public class LojaController {
 	 * 
 	 * @param nome - recebe o nome do usuario
 	 * @param login - recebe o login do usuario
+	 * @param experiencia recebe a experiencia do usuario
 	 * @return - retorna um boolean indicando se o usuario foi adicionado ou nao
 	 */
 	public boolean addUsuario(String nome, String login, ExperienciaUsuario experiencia)throws SteamException{
@@ -49,11 +50,28 @@ public class LojaController {
 		return bancoUsuarios.adicionaUsuario(usuario);
 	}
 
+	/**
+	 * Esse metodo cria um novo usuario do tipo especificado
+	 * 
+	 * @param nomeUsuario -recebe o nome do usuario
+	 * @param loginUsuario - recebe o login do usuario
+	 * @param experiencia - recebe a experiencia do usuario
+	 * @return - retorna o usuario criado
+	 * @throws SteamException - gera um exception caso as entradas sejam invalidas
+	 */
 	private Usuario criaUsuario(String nomeUsuario, String loginUsuario, ExperienciaUsuario experiencia)throws SteamException{
 		return fabricaUsuario.criaUsuario(nomeUsuario, loginUsuario, experiencia);
 	}
 
 
+	/**
+	 * Esse metodo adiciona dinheiro a um usuario
+	 * 
+	 * @param login - recebe o login do usuario
+	 * @param quantDinheiro - recebe a quantidade de dinheiro que será adicionada
+	 * @return - retorna um boolean informando se a operacao foi efetuada com sucesso
+	 * @throws SteamException - gera uma exception caso as entradas seja invalidas
+	 */
 	public boolean addDinheioUsuario(String login,double quantDinheiro)throws SteamException{
 
 		if(containUsuario(login)){
@@ -68,6 +86,13 @@ public class LojaController {
 
 	}
 
+	/**
+	 * Esse metodo verifica se um determinando usuario existe no banco de usuarios
+	 * 
+	 * @param loginUsuario - recebe o login do usuario
+	 * @return - retorna um boolean indicando se o usuario existe ou nao
+	 * @throws StringException - gera uma exception caso a entrada seja invalida
+	 */
 	public boolean containUsuario(String loginUsuario)throws StringException{
 		return this.bancoUsuarios.containUsuario(loginUsuario);
 	}
@@ -76,8 +101,8 @@ public class LojaController {
 	 * Esse metodo cria um jogo para ser comprado
 	 * 
 	 * @param nomeJogo - recebe o nome do jogo
-	 * @param preco - receb o preco do jogo
-	 * @param tipo - receb o tipo do jogo
+	 * @param preco - recebe o preco do jogo
+	 * @param tipo - recebe o tipo do jogo
 	 * @param jogablidades - recebe uma lista de jogabiliades a ser adicionada
 	 * @return - retorna o jogo criado
 	 * @throws DadosInvalidosException - gera uma exception caso as entradas sejam invalidas
@@ -87,6 +112,16 @@ public class LojaController {
 	}
 
 
+	/**
+	 * Esse metodo recompensa o usuario por uma determinada jogada
+	 * 
+	 * @param login - recebe o login do usuario
+	 * @param nomeJogo - recebe o nome do jogo
+	 * @param score - recebe o score atingido
+	 * @param zerou - recebe um boolean indicando se zerou ou nao
+	 * @return - retorna um boolean indicando se a operacao foi realizada com sucesso
+	 * @throws SteamException - gera uma exceptio caso as entradas seja invalidas
+	 */
 	public boolean recompensarUsuario(String login, String nomeJogo, int score, boolean zerou)throws SteamException{
 
 		if(containUsuario(login)){
@@ -100,6 +135,16 @@ public class LojaController {
 
 	}
 	
+	/**
+	 * Esse metodo puni o usuario por uma determinada jogada
+	 * 
+	 * @param login - recebe o login do usuario
+	 * @param nomeJogo - recebe o nome do jogo
+	 * @param score - recebe o score atingido
+	 * @param zerou - recebe um boolean indicando se zerou ou nao
+	 * @return - retorna um boolean indicando se a operacao foi realizada com sucesso
+	 * @throws SteamException - gera uma exceptio caso as entradas seja invalidas
+	 */
 	public boolean punirUsuario(String login, String nomeJogo, int score, boolean zerou)throws SteamException{
 		
 		if(containUsuario(login)){
@@ -153,7 +198,7 @@ public class LojaController {
 	}
 
 	/**
-	 * Metodo toString que retorna a lista de usuarios da loja
+	 * Metodo toString que retorna a lista de usuarios da loja (chamada polimorfica)
 	 */
 	@Override
 	public String toString(){
@@ -164,6 +209,9 @@ public class LojaController {
 		return saida;
 	}
 
+	/**
+	 * Esse metodo compara se dois controller sao iguais atraves de se banco de usuarios
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -173,6 +221,9 @@ public class LojaController {
 		return result;
 	}
 
+	/**
+	 * Esse metodo compara se dois controller sao iguais atraves de se banco de usuarios
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		
