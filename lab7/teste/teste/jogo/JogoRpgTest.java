@@ -4,6 +4,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import jogos.Rpg;
 
 import org.junit.Before;
@@ -19,22 +23,29 @@ import exceptions.StringException;
 public class JogoRpgTest {
 
 	private Rpg metalGear;
+	private List<Jogabilidade> jogabilidades;
 
 	@Before
 	public void contrutor()throws Exception{
-		metalGear = new Rpg("Metal Gear", 100.99);
+		jogabilidades = new ArrayList<Jogabilidade>();
+		jogabilidades.add(Jogabilidade.COOPERATIVO);
+		jogabilidades.add(Jogabilidade.COMPETITIVO);
+		jogabilidades.add(Jogabilidade.MULTIPLAYER);
+		jogabilidades.add(Jogabilidade.ONLLINE);
+		
+		metalGear = new Rpg("Metal Gear", 100.99, jogabilidades);
 	}
 
 	@Test
 	public void testRpg() {
 		try {
-			Rpg jogoRpg = new Rpg("Metal Gear", 200.00);
-		} catch (Exception e) {
+			Rpg jogoRpg = new Rpg("Metal Gear", 200.00, jogabilidades);
+		} catch (SteamException e) {
 			fail(); //nao deve gerar exception
 		}
 
 		try {
-			Rpg jogoRpg = new Rpg("", 200.00);
+			Rpg jogoRpg = new Rpg("", 200.00, jogabilidades);
 			fail(); //deve gerar exception
 
 		}catch(StringException exception){
@@ -48,7 +59,7 @@ public class JogoRpgTest {
 		}
 
 		try {
-			Rpg jogoRpg = new Rpg(null, 200.00);
+			Rpg jogoRpg = new Rpg(null, 200.00, jogabilidades);
 			fail(); //deve gerar exception
 
 		}catch(StringException exception){
@@ -62,7 +73,7 @@ public class JogoRpgTest {
 		}
 
 		try {
-			Rpg jogoRpg = new Rpg("Metal Gear", -200.00);
+			Rpg jogoRpg = new Rpg("Metal Gear", -200.00, jogabilidades);
 			fail();
 		}catch (NumeroInvalidoException exception){
 			assertEquals("Preco nao pode ser negativo", exception.getMessage());
@@ -95,30 +106,6 @@ public class JogoRpgTest {
 
 		}catch (Exception e) {
 			fail();
-		}
-	}
-
-	@Test
-	public void testAdicionaJogabilidade() {
-		try {
-
-			assertTrue(metalGear.adicionaJogabilidade(Jogabilidade.COMPETITIVO));
-			assertTrue(metalGear.adicionaJogabilidade(Jogabilidade.MULTIPLAYER));
-			assertTrue(metalGear.adicionaJogabilidade(Jogabilidade.OFFLINE));
-			assertTrue(metalGear.adicionaJogabilidade(Jogabilidade.ONLLINE));
-			assertFalse(metalGear.adicionaJogabilidade(Jogabilidade.COMPETITIVO));
-		} catch (Exception e) {
-			fail(); // nao deve gerar uma exception
-		}
-
-		try {
-
-			metalGear.adicionaJogabilidade(null);
-			fail(); // deve gerar uma excepiton
-		} catch (ConstanteException e) {
-			assertEquals("Jogabilidade nao pode ser nula", e.getMessage());
-		} catch (SteamException e) {
-			assertEquals("Jogabilidade nao pode ser nula", e.getMessage());
 		}
 	}
 
@@ -197,14 +184,22 @@ public class JogoRpgTest {
 	public void testEqualsObject() {
 		try {
 
-			Rpg crossFire = new Rpg("Metal Gear", 100.99);
-			Rpg pointBlack = new Rpg("Point Black", 100.99);
+			Rpg crossFire = new Rpg("Metal Gear", 100.99, jogabilidades);
+			Rpg pointBlack = new Rpg("Point Black", 100.99, jogabilidades);
 
 			assertTrue(metalGear.equals(crossFire));
 			assertFalse(metalGear.equals(pointBlack));
 		} catch (Exception e) {
 			fail(); //nao deve gerar exception
 		}
+	}
+	
+	@Test
+	public void testContainJogabilidade(){
+		
+		assertTrue(metalGear.containJogabilidade(Jogabilidade.COOPERATIVO));
+		assertTrue(metalGear.containJogabilidade(Jogabilidade.ONLLINE));
+		assertFalse(metalGear.containJogabilidade(Jogabilidade.OFFLINE));
 	}
 
 	@Test

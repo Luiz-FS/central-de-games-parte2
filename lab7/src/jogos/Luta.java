@@ -5,7 +5,6 @@ import java.util.List;
 
 import util.ExcecoesP2cg;
 import enumerations.Jogabilidade;
-import exceptions.DadosInvalidosException;
 import exceptions.SteamException;
 
 /**
@@ -23,9 +22,9 @@ public class Luta extends Jogo{
 	 * @param nome - recebe o nome de jogo
 	 * @param preco - recebe o preco do jogo
 	 * @param jogabilidades recebe as jogabilidades a serem adicionadas
-	 * @throws DadosInvalidosException - gera uma exception caso as entradas sejam invalidas
+	 * @throws SteamException - gera uma exception caso as entradas sejam invalidas
 	 */
-	public Luta(String nome, double preco, List<Jogabilidade> jogabilidades)throws DadosInvalidosException{
+	public Luta(String nome, double preco, List<Jogabilidade> jogabilidades)throws SteamException{
 		super(nome, preco, jogabilidades);
 	}
 

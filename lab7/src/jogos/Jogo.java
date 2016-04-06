@@ -28,11 +28,12 @@ public abstract class Jogo {
 	 * @param nome - recebe o nome do jogo
 	 * @param preco - recebe o preco do jogo
 	 * @param jogabilidades - recebe as jogabilidades do jogo
-	 * @throws DadosInvalidosException - gera uma exception caso as entradas sejam invalidas
+	 * @throws SteamException - gera uma exception caso as entradas sejam invalidas
 	 */
-	public Jogo(String nome, double preco, List<Jogabilidade> jogabilidades)throws DadosInvalidosException{
+	public Jogo(String nome, double preco, List<Jogabilidade> jogabilidades)throws SteamException{
 		ExcecoesP2cg.verificaNome(nome);
 		ExcecoesP2cg.verificaPreco(preco);
+		ExcecoesP2cg.verificaJogabilidade(jogabilidades);
 		
 		this.nome = nome;
 		this.preco = preco;

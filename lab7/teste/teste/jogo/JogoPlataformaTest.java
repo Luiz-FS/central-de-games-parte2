@@ -6,6 +6,8 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.ObjectStreamException;
+import java.util.ArrayList;
+import java.util.List;
 
 import jogos.Plataforma;
 
@@ -23,22 +25,29 @@ import exceptions.StringException;
 public class JogoPlataformaTest {
 
 	private Plataforma metalGear;
+	private List<Jogabilidade> jogabilidades;
 
 	@Before
 	public void contrutor()throws Exception{
-		metalGear = new Plataforma("Metal Gear", 100.99);
+		jogabilidades = new ArrayList<Jogabilidade>();
+		jogabilidades.add(Jogabilidade.COOPERATIVO);
+		jogabilidades.add(Jogabilidade.COMPETITIVO);
+		jogabilidades.add(Jogabilidade.MULTIPLAYER);
+		jogabilidades.add(Jogabilidade.ONLLINE);
+		
+		metalGear = new Plataforma("Metal Gear", 100.99, jogabilidades);
 	}
 
 	@Test
 	public void testPlataforma() {
 		try {
-			Plataforma jogoPlataforma = new Plataforma("Metal Gear", 200.00);
-		} catch (Exception e) {
+			Plataforma jogoPlataforma = new Plataforma("Metal Gear", 200.00, jogabilidades);
+		} catch (SteamException e) {
 			fail(); //nao deve gerar exception
 		}
 
 		try {
-			Plataforma jogoPlataforma = new Plataforma("", 200.00);
+			Plataforma jogoPlataforma = new Plataforma("", 200.00, jogabilidades);
 			fail(); //deve gerar exception
 			
 		}catch(StringException exception){
@@ -52,7 +61,7 @@ public class JogoPlataformaTest {
 		}
 
 		try {
-			Plataforma jogoPlataforma = new Plataforma(null, 200.00);
+			Plataforma jogoPlataforma = new Plataforma(null, 200.00, jogabilidades);
 			fail(); //deve gerar exception
 			
 		}catch(StringException exception){
@@ -66,7 +75,7 @@ public class JogoPlataformaTest {
 		}
 
 		try {
-			Plataforma jogoPlataforma = new Plataforma("Metal Gear", -200.00);
+			Plataforma jogoPlataforma = new Plataforma("Metal Gear", -200.00, jogabilidades);
 			fail();
 			
 		} catch (NumeroInvalidoException exception){
@@ -97,35 +106,6 @@ public class JogoPlataformaTest {
 			
 		}catch (DadosInvalidosException exception){
 			assertEquals("Score nao pode ser negativo", exception.getMessage());
-			
-		}catch (Exception e) {
-			fail();
-		}
-	}
-
-	@Test
-	public void testAdicionaJogabilidade() {
-		try {
-
-			assertTrue(metalGear.adicionaJogabilidade(Jogabilidade.COMPETITIVO));
-			assertTrue(metalGear.adicionaJogabilidade(Jogabilidade.MULTIPLAYER));
-			assertTrue(metalGear.adicionaJogabilidade(Jogabilidade.OFFLINE));
-			assertTrue(metalGear.adicionaJogabilidade(Jogabilidade.ONLLINE));
-			assertFalse(metalGear.adicionaJogabilidade(Jogabilidade.COMPETITIVO));
-		} catch (Exception e) {
-			fail(); // nao deve gerar uma exception
-		}
-
-		try {
-
-			metalGear.adicionaJogabilidade(null);
-			fail(); // deve gerar uma excepiton
-			
-		}catch (ConstanteException exception){
-			assertEquals("Jogabilidade nao pode ser nula", exception.getMessage());
-			
-		}catch (SteamException exception){
-			assertEquals("Jogabilidade nao pode ser nula", exception.getMessage());
 			
 		}catch (Exception e) {
 			fail();
@@ -207,8 +187,8 @@ public class JogoPlataformaTest {
 	public void testEqualsObject() {
 		try {
 
-			Plataforma crossFire = new Plataforma("Metal Gear", 100.99);
-			Plataforma pointBlack = new Plataforma("Point Black", 100.99);
+			Plataforma crossFire = new Plataforma("Metal Gear", 100.99, jogabilidades);
+			Plataforma pointBlack = new Plataforma("Point Black", 100.99, jogabilidades);
 
 			assertTrue(metalGear.equals(crossFire));
 			assertFalse(metalGear.equals(pointBlack));
@@ -217,6 +197,14 @@ public class JogoPlataformaTest {
 		}
 	}
 
+	@Test
+	public void testContainJogabilidade(){
+		
+		assertTrue(metalGear.containJogabilidade(Jogabilidade.COOPERATIVO));
+		assertTrue(metalGear.containJogabilidade(Jogabilidade.ONLLINE));
+		assertFalse(metalGear.containJogabilidade(Jogabilidade.OFFLINE));
+	}
+	
 	@Test
 	public void testToString() {
 		try {

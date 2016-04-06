@@ -6,7 +6,6 @@ import java.util.List;
 import enumerations.Jogabilidade;
 import enumerations.TipoDeJogo;
 import exceptions.ConstanteException;
-import exceptions.DadosInvalidosException;
 import exceptions.SteamException;
 import jogos.Jogo;
 import jogos.Luta;
@@ -53,9 +52,11 @@ public class JogoFactory {
 	 * @param preco - recebe o preco do jogo
 	 * @param jogabilidades - recebe as jogabilidades a serem adicionadas
 	 * @return - retorna o jogo criado
-	 * @throws DadosInvalidosException - gera umas exception caso as entradas sejam invalidas
+	 * @throws SteamException - gera umas exception caso as entradas sejam invalidas
 	 */
-	public Jogo criaJogoRpg(String nomeJogo, double preco, List<Jogabilidade> jogabilidades)throws DadosInvalidosException{
+	public Jogo criaJogoRpg(String nomeJogo, double preco, 
+			List<Jogabilidade> jogabilidades)throws SteamException{
+		
 		Jogo jogo = new Rpg(nomeJogo, preco, jogabilidades);
 		
 		return jogo;
@@ -68,9 +69,11 @@ public class JogoFactory {
 	 * @param preco - recebe o preco do jogo
 	 * @param jogabilidades - recebe as jogabilidades a serem adicionadas
 	 * @return - retorna o jogo criado
-	 * @throws DadosInvalidosException - gera umas exception caso as entradas sejam invalidas
+	 * @throws SteamException - gera umas exception caso as entradas sejam invalidas
 	 */
-	public Jogo criaJogoLuta(String nomeJogo, double preco, List<Jogabilidade> jogabilidades)throws DadosInvalidosException{
+	public Jogo criaJogoLuta(String nomeJogo, double preco, 
+			List<Jogabilidade> jogabilidades)throws SteamException{
+		
 		Jogo jogo = new Luta(nomeJogo, preco, jogabilidades);
 		
 		return jogo;
@@ -83,9 +86,10 @@ public class JogoFactory {
 	 * @param preco - recebe o preco do jogo
 	 * @param jogabilidades - recebe as jogabilidades a serem adicionadas
 	 * @return - retorna o jogo criado
-	 * @throws DadosInvalidosException - gera umas exception caso as entradas sejam invalidas
+	 * @throws SteamException - gera umas exception caso as entradas sejam invalidas
 	 */
-	public Jogo criaJogoPlataforma(String nomeJogo, double preco, List<Jogabilidade> jogabilidades)throws DadosInvalidosException{
+	public Jogo criaJogoPlataforma(String nomeJogo, double preco, 
+			List<Jogabilidade> jogabilidades)throws SteamException{
 		Jogo jogo = new Plataforma(nomeJogo, preco, jogabilidades);
 		
 		return jogo;

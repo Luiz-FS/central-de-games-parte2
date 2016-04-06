@@ -1,10 +1,12 @@
 package teste.jogo;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
-import java.io.ObjectStreamException;
-
-import jogos.Luta;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -14,29 +16,36 @@ import exceptions.ConstanteException;
 import exceptions.DadosInvalidosException;
 import exceptions.LogicaException;
 import exceptions.NumeroInvalidoException;
-import exceptions.ObjetoinvalidoException;
 import exceptions.SteamException;
 import exceptions.StringException;
+import jogos.Luta;
 
 public class JogoLutaTest {
 
 	private Luta metalGear;
+	private List<Jogabilidade> jogabilidades;
 	
 	@Before
 	public void contrutor()throws Exception{
-		metalGear = new Luta("Metal Gear", 100.99);
+		jogabilidades = new ArrayList<Jogabilidade>();
+		jogabilidades.add(Jogabilidade.COOPERATIVO);
+		jogabilidades.add(Jogabilidade.COMPETITIVO);
+		jogabilidades.add(Jogabilidade.MULTIPLAYER);
+		jogabilidades.add(Jogabilidade.ONLLINE);
+		
+		metalGear = new Luta("Metal Gear", 100.99, jogabilidades);
 	}
 	
 	@Test
 	public void testLuta() {
 		try {
-			Luta jogoLuta = new Luta("Metal Gear", 200.00);
-		} catch (Exception e) {
+			Luta jogoLuta = new Luta("Metal Gear", 200.00, jogabilidades);
+		} catch (SteamException e) {
 			fail(); //nao deve gerar exception
 		}
 		
 		try {
-			Luta jogoLuta = new Luta("", 200.00);
+			Luta jogoLuta = new Luta("", 200.00, jogabilidades);
 			fail(); //deve gerar exception
 			
 		}catch(StringException exception){
@@ -50,7 +59,7 @@ public class JogoLutaTest {
 		}
 		
 		try {
-			Luta jogoLuta = new Luta(null, 200.00);
+			Luta jogoLuta = new Luta(null, 200.00, jogabilidades);
 			fail(); //deve gerar exception
 			
 		}catch(StringException exception){
@@ -64,7 +73,7 @@ public class JogoLutaTest {
 		}
 		
 		try {
-			Luta jogoLuta = new Luta("Metal Gear", -200.00);
+			Luta jogoLuta = new Luta("Metal Gear", -200.00, jogabilidades);
 			fail();
 			
 		} catch(NumeroInvalidoException exception){
@@ -109,33 +118,6 @@ public class JogoLutaTest {
 			assertEquals("Score maximo atingido.", exception.getMessage());
 		}
 		catch (Exception e) {
-			fail();
-		}
-	}
-	
-	public void testAdicionaJogabilidade() {
-		try {
-
-			assertTrue(metalGear.adicionaJogabilidade(Jogabilidade.COMPETITIVO));
-			assertTrue(metalGear.adicionaJogabilidade(Jogabilidade.MULTIPLAYER));
-			assertTrue(metalGear.adicionaJogabilidade(Jogabilidade.OFFLINE));
-			assertTrue(metalGear.adicionaJogabilidade(Jogabilidade.ONLLINE));
-			assertFalse(metalGear.adicionaJogabilidade(Jogabilidade.COMPETITIVO));
-		} catch (Exception e) {
-			fail(); // nao deve gerar uma exception
-		}
-
-		try {
-			
-			metalGear.adicionaJogabilidade(null);
-			fail(); // deve gerar uma excepiton
-		}catch (ConstanteException exception){
-			assertEquals("Jogabilidade nao pode ser nula", exception.getMessage());
-			
-		}catch (SteamException exception){
-			assertEquals("Jogabilidade nao pode ser nula", exception.getMessage());
-			
-		}catch (Exception e) {
 			fail();
 		}
 	}
@@ -215,14 +197,22 @@ public class JogoLutaTest {
 	public void testEqualsObject() {
 		try {
 			
-			Luta crossFire = new Luta("Metal Gear", 100.99);
-			Luta pointBlack = new Luta("Point Black", 100.99);
+			Luta crossFire = new Luta("Metal Gear", 100.99, jogabilidades);
+			Luta pointBlack = new Luta("Point Black", 100.99, jogabilidades);
 			
 			assertTrue(metalGear.equals(crossFire));
 			assertFalse(metalGear.equals(pointBlack));
 		} catch (Exception e) {
 			fail(); //nao deve gerar exception
 		}
+	}
+	
+	@Test
+	public void testContainJogabilidade(){
+		
+		assertTrue(metalGear.containJogabilidade(Jogabilidade.COOPERATIVO));
+		assertTrue(metalGear.containJogabilidade(Jogabilidade.ONLLINE));
+		assertFalse(metalGear.containJogabilidade(Jogabilidade.OFFLINE));
 	}
 
 	@Test
