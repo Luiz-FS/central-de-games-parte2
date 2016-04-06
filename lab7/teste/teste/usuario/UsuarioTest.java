@@ -52,7 +52,6 @@ public class UsuarioTest {
 			assertTrue(usuario.compraJogo(crossfire));
 			assertTrue(usuario.compraJogo(pointBlack));
 			assertTrue(usuario.compraJogo(superMario));
-			assertFalse(usuario.compraJogo(battlefield));
 
 		} catch (SteamException e) {
 			fail(); //nao deve gerar exception
@@ -202,7 +201,7 @@ public class UsuarioTest {
 			Jogo crossfire = new Luta("Coressfire", 100.99, jogabilidades);
 			assertTrue(usuario.compraJogo(crossfire));
 			
-			System.out.println(usuario.getXp2());
+			assertEquals(1009, usuario.getXp2());
 			
 		} catch (SteamException e) {
 			fail(); //nao deve gerar exception
