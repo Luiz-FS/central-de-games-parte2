@@ -1,7 +1,7 @@
 /* 115111424 - LUIZ FERNANDO DA SILVA: LAB 7 - Turma 3 */
 package jogos;
 
-import java.util.List;
+import java.util.Set;
 
 import enumerations.Jogabilidade;
 import exceptions.SteamException;
@@ -23,8 +23,8 @@ public class Rpg extends Jogo{
 	 * @param jogabilidades recebe as jogabilidades a serem adicionadas
 	 * @throws SteamException - gera uma exception caso as entradas sejam invalidas
 	 */
-	public Rpg(String nome, double preco, List<Jogabilidade> jogabilidades)throws SteamException {
-		super(nome, preco, jogabilidades  );
+	public Rpg(String nome, double preco, Set<Jogabilidade> jogabilidades)throws SteamException {
+		super(nome, preco, jogabilidades);
 	}
 	
 	/**

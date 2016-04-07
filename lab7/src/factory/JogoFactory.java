@@ -1,16 +1,16 @@
 /* 115111424 - LUIZ FERNANDO DA SILVA: LAB 7 - Turma 3 */
 package factory;
 
-import java.util.List;
+import java.util.Set;
 
-import enumerations.Jogabilidade;
-import enumerations.TipoDeJogo;
-import exceptions.ConstanteException;
-import exceptions.SteamException;
 import jogos.Jogo;
 import jogos.Luta;
 import jogos.Plataforma;
 import jogos.Rpg;
+import enumerations.Jogabilidade;
+import enumerations.TipoDeJogo;
+import exceptions.ConstanteException;
+import exceptions.SteamException;
 
 public class JogoFactory {
 	
@@ -24,7 +24,7 @@ public class JogoFactory {
 	 * @return - retorna o jogo criado
 	 * @throws SteamException - gera umas exception caso as entradas sejam invalidas ou o tipo nao exista
 	 */
-	public Jogo criaJogo(String nomeJogo, double preco, TipoDeJogo tipo, List<Jogabilidade> jogabilidades)throws SteamException{
+	public Jogo criaJogo(String nomeJogo, double preco, TipoDeJogo tipo, Set<Jogabilidade> jogabilidades)throws SteamException{
 		
 		switch(tipo){
 		
@@ -55,7 +55,7 @@ public class JogoFactory {
 	 * @throws SteamException - gera umas exception caso as entradas sejam invalidas
 	 */
 	public Jogo criaJogoRpg(String nomeJogo, double preco, 
-			List<Jogabilidade> jogabilidades)throws SteamException{
+			Set<Jogabilidade> jogabilidades)throws SteamException{
 		
 		Jogo jogo = new Rpg(nomeJogo, preco, jogabilidades);
 		
@@ -72,7 +72,7 @@ public class JogoFactory {
 	 * @throws SteamException - gera umas exception caso as entradas sejam invalidas
 	 */
 	public Jogo criaJogoLuta(String nomeJogo, double preco, 
-			List<Jogabilidade> jogabilidades)throws SteamException{
+			Set<Jogabilidade> jogabilidades)throws SteamException{
 		
 		Jogo jogo = new Luta(nomeJogo, preco, jogabilidades);
 		
@@ -89,7 +89,7 @@ public class JogoFactory {
 	 * @throws SteamException - gera umas exception caso as entradas sejam invalidas
 	 */
 	public Jogo criaJogoPlataforma(String nomeJogo, double preco, 
-			List<Jogabilidade> jogabilidades)throws SteamException{
+			Set<Jogabilidade> jogabilidades)throws SteamException{
 		Jogo jogo = new Plataforma(nomeJogo, preco, jogabilidades);
 		
 		return jogo;

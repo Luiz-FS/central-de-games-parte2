@@ -1,7 +1,7 @@
 /* 115111424 - LUIZ FERNANDO DA SILVA: LAB 7 - Turma 3 */
 package jogos;
 
-import java.util.List;
+import java.util.Set;
 
 import util.ExcecoesP2cg;
 import enumerations.Jogabilidade;
@@ -20,7 +20,7 @@ public abstract class Jogo {
 	private int maiorScore;
 	private int quantidadeVezesJogadas;
 	private int vezesZeradas;
-	private List<Jogabilidade> jogabilidades;
+	private Set<Jogabilidade> jogabilidades;
 
 	/**
 	 * Contrutor da classe jogo
@@ -30,7 +30,7 @@ public abstract class Jogo {
 	 * @param jogabilidades - recebe as jogabilidades do jogo
 	 * @throws SteamException - gera uma exception caso as entradas sejam invalidas
 	 */
-	public Jogo(String nome, double preco, List<Jogabilidade> jogabilidades)throws SteamException{
+	public Jogo(String nome, double preco, Set<Jogabilidade> jogabilidades)throws SteamException{
 		ExcecoesP2cg.verificaNome(nome);
 		ExcecoesP2cg.verificaPreco(preco);
 		ExcecoesP2cg.verificaJogabilidade(jogabilidades);

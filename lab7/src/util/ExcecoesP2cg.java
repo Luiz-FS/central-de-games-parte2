@@ -1,8 +1,11 @@
 /* 115111424 - LUIZ FERNANDO DA SILVA: LAB 7 - Turma 3 */
 package util;
 
-import java.util.List;
+import java.util.Set;
 
+import jogos.Jogo;
+import usuarios.TipoUsuarioIF;
+import usuarios.Usuario;
 import enumerations.EsperienciaUsuario;
 import enumerations.Jogabilidade;
 import exceptions.ConstanteException;
@@ -10,9 +13,6 @@ import exceptions.LogicaException;
 import exceptions.NumeroInvalidoException;
 import exceptions.ObjetoinvalidoException;
 import exceptions.StringException;
-import jogos.Jogo;
-import usuarios.TipoUsuarioIF;
-import usuarios.Usuario;
 
 public class ExcecoesP2cg {
 
@@ -74,7 +74,7 @@ public class ExcecoesP2cg {
 	 * @param jogabilidade - recebe a jogabilidade
 	 * @throws ConstanteException - gera uma exception casos a jogabilidade passada seja nula
 	 */
-	public static void verificaJogabilidade(List<Jogabilidade> jogabilidade)throws ConstanteException{
+	public static void verificaJogabilidade(Set<Jogabilidade> jogabilidade)throws ConstanteException{
 		if(jogabilidade == null){
 			throw new ConstanteException("Jogabilidade nao pode ser nula");
 		}

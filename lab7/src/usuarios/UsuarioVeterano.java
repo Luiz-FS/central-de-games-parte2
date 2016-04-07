@@ -14,35 +14,20 @@ import jogos.Jogo;
  */
 public class UsuarioVeterano implements TipoUsuarioIF{
 	
-	private final int RECOMPENSA_ONLINE;
-	private final int RECOMPENSA_COOPERATIVO;
+	private final int RECOMPENSA_ONLINE = 10;
+	private final int RECOMPENSA_COOPERATIVO = 20;
 	
-	private final int PUNICAO_COOPERATIVO;
-	private final int PUNICAO_COMPETITIVO;
+	private final int PUNICAO_COOPERATIVO = 20;
+	private final int PUNICAO_COMPETITIVO = 20;
 	
-	private final double DESCONTO;
-	private final int XP2_EXTRA;
-	
-	/**
-	 * Construtor da classe UsuarioVeterano
-	 */
-	public UsuarioVeterano(){
-		
-		this.RECOMPENSA_ONLINE = 10;
-		this.RECOMPENSA_COOPERATIVO = 20;
-		
-		this.PUNICAO_COMPETITIVO = 20;
-		this.PUNICAO_COOPERATIVO = 20;
-		
-		this.DESCONTO = 0.8;
-		this.XP2_EXTRA = 15;
-	}
+	private final double DESCONTO = 0.8;
+	private final int XP2_EXTRA = 15;
 	
 	/**
 	 * Esse metodo sobrescreve o metodo comprar da interface TipoUsuarioIF (chamada polimorfica)
 	 */
 	@Override
-	public double Desconto(Jogo jogo) throws ObjetoinvalidoException{
+	public double desconto(Jogo jogo) throws ObjetoinvalidoException{
 
 		ExcecoesP2cg.verificaJogo(jogo);
 

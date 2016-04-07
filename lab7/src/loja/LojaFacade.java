@@ -1,7 +1,7 @@
 /* 115111424 - LUIZ FERNANDO DA SILVA: LAB 7 - Turma 3 */
 package loja;
 
-import java.util.List;
+import java.util.Set;
 
 import enumerations.EsperienciaUsuario;
 import enumerations.Jogabilidade;
@@ -125,7 +125,7 @@ public class LojaFacade {
 	 * @return - retorna um boolean indicando se o jogo foi vendido ou nao
 	 */
 	public boolean venderJogo(String login, String nomeJogo, double preco, TipoDeJogo tipoJogo,
-			List<Jogabilidade> jogabilidades) {
+			Set<Jogabilidade> jogabilidades) {
 
 		try {
 			return controladorLoja.venderJogo(login, nomeJogo, preco, tipoJogo, jogabilidades);

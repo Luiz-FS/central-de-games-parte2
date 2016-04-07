@@ -57,7 +57,7 @@ public class Usuario {
 
 		if(! jogos.containJogo(jogo)){
 
-			double precoJogo = tipoUsuario.Desconto(jogo);
+			double precoJogo = tipoUsuario.desconto(jogo);
 			ExcecoesP2cg.verificaCompra(this.quantDinheiro, precoJogo);
 
 			retiraDinheiro(precoJogo);

@@ -1,5 +1,11 @@
+banco.dados
 enumerations
 exceptions
+factory
 jogos
 loja
+teste.jogo
+teste.loja
+teste.usuario
 usuarios
+util

@@ -120,7 +120,8 @@ public class BancoUsuarios {
 		if(obj instanceof BancoUsuarios){
 			BancoUsuarios outroBanco = (BancoUsuarios) obj;
 			
-			return outroBanco.equals(this.usuarios);
+			
+			return this.usuarios.equals(outroBanco.usuarios);
 		}
 		
 		return false;

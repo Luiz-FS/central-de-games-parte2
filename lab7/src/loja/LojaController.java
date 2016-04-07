@@ -1,8 +1,10 @@
 /* 115111424 - LUIZ FERNANDO DA SILVA: LAB 7 - Turma 3 */
 package loja;
 
-import java.util.List;
+import java.util.Set;
 
+import jogos.Jogo;
+import usuarios.Usuario;
 import banco.dados.BancoUsuarios;
 import enumerations.EsperienciaUsuario;
 import enumerations.Jogabilidade;
@@ -12,8 +14,6 @@ import exceptions.SteamException;
 import exceptions.StringException;
 import factory.JogoFactory;
 import factory.UsuarioFactory;
-import jogos.Jogo;
-import usuarios.Usuario;
 
 /**
  * 
@@ -107,7 +107,7 @@ public class LojaController {
 	 * @return - retorna o jogo criado
 	 * @throws DadosInvalidosException - gera uma exception caso as entradas sejam invalidas
 	 */
-	private Jogo criaJogo(String nomeJogo, double preco, TipoDeJogo tipo, List<Jogabilidade> jogabilidades) throws SteamException {
+	private Jogo criaJogo(String nomeJogo, double preco, TipoDeJogo tipo, Set<Jogabilidade> jogabilidades) throws SteamException {
 		return fabricaJogo.criaJogo(nomeJogo, preco, tipo, jogabilidades);
 	}
 
@@ -168,7 +168,8 @@ public class LojaController {
 	 * @param jogablidades - recebe uma lista de jogabiliades a ser adicionada
 	 * @return - retorna um boolean indicando se o jogo foi vendido com sucesso
 	 */
-	public boolean venderJogo(String login, String nomeJogo, double preco, TipoDeJogo tipoJogo, List<Jogabilidade> jogabilidades)throws SteamException{
+	public boolean venderJogo(String login, String nomeJogo, double preco, TipoDeJogo tipoJogo, 
+			Set<Jogabilidade> jogabilidades)throws SteamException{
 
 		if(containUsuario(login)){
 
@@ -198,10 +199,9 @@ public class LojaController {
 	}
 
 	/**
-	 * Metodo toString que retorna a lista de usuarios da loja (chamada polimorfica)
+	 * Metodo infoUsuarios que retorna a lista de usuarios da loja (chamada polimorfica)
 	 */
-	@Override
-	public String toString(){
+	public String infoUsuarios(){
 		final String FIM_DE_LINHA = System.lineSeparator();
 		String saida = "=== Central P2-CG ===" + FIM_DE_LINHA + FIM_DE_LINHA
 					 + bancoUsuarios;
@@ -228,7 +228,6 @@ public class LojaController {
 	public boolean equals(Object obj) {
 		
 		if(obj instanceof LojaController){
-			
 			LojaController outroController = (LojaController) obj;
 			
 			return outroController.bancoUsuarios.equals(bancoUsuarios);

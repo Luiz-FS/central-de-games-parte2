@@ -1,32 +1,34 @@
 package teste.usuario;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
-import org.junit.Before;
-import org.junit.Test;
-
-import enumerations.Jogabilidade;
-import exceptions.DadosInvalidosException;
-import exceptions.SteamException;
 import jogos.Jogo;
 import jogos.Luta;
 import jogos.Plataforma;
 import jogos.Rpg;
+
+import org.junit.Before;
+import org.junit.Test;
+
 import usuarios.Usuario;
-import usuarios.UsuarioNoob;
-import usuarios.UsuarioVeterano;
+import enumerations.Jogabilidade;
+import exceptions.DadosInvalidosException;
+import exceptions.SteamException;
 
 public class UsuarioTest {
 
 	private Usuario usuario;
-	private List<Jogabilidade> jogabilidades;
+	private Set<Jogabilidade> jogabilidades;
 
 	@Before
 	public void Usuario(){
-		jogabilidades = new ArrayList<Jogabilidade>();
+		jogabilidades = new HashSet<Jogabilidade>();
 		jogabilidades.add(Jogabilidade.COOPERATIVO);
 		jogabilidades.add(Jogabilidade.COMPETITIVO);
 		jogabilidades.add(Jogabilidade.MULTIPLAYER);

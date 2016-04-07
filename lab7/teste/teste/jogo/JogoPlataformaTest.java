@@ -5,9 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.io.ObjectStreamException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 
 import jogos.Luta;
 import jogos.Plataforma;
@@ -16,21 +14,19 @@ import org.junit.Before;
 import org.junit.Test;
 
 import enumerations.Jogabilidade;
-import exceptions.ConstanteException;
 import exceptions.DadosInvalidosException;
 import exceptions.NumeroInvalidoException;
-import exceptions.ObjetoinvalidoException;
 import exceptions.SteamException;
 import exceptions.StringException;
 
 public class JogoPlataformaTest {
 
 	private Plataforma metalGear;
-	private List<Jogabilidade> jogabilidades;
+	private HashSet<Jogabilidade> jogabilidades;
 
 	@Before
 	public void contrutor()throws Exception{
-		jogabilidades = new ArrayList<Jogabilidade>();
+		jogabilidades = new HashSet<Jogabilidade>();
 		jogabilidades.add(Jogabilidade.COOPERATIVO);
 		jogabilidades.add(Jogabilidade.COMPETITIVO);
 		jogabilidades.add(Jogabilidade.MULTIPLAYER);
