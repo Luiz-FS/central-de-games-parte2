@@ -7,6 +7,6 @@ package enumerations;
  *
  * Essa enumeration contem os tipos de usuario(Noob e veterano)
  */
-public enum ExperienciaUsuario {
+public enum EsperienciaUsuario {
 	NOOB, VETERANO;
 }

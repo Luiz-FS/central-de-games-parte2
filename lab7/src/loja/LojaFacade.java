@@ -3,7 +3,7 @@ package loja;
 
 import java.util.List;
 
-import enumerations.ExperienciaUsuario;
+import enumerations.EsperienciaUsuario;
 import enumerations.Jogabilidade;
 import enumerations.TipoDeJogo;
 import exceptions.SteamException;
@@ -33,7 +33,7 @@ public class LojaFacade {
 	 * @param experiencia - recebe a experiencia do usuario
 	 * @return - retorna um boolean indicando se o usuario foi adicionado ou nao
 	 */
-	public boolean addUsuario(String nome, String login, ExperienciaUsuario experiencia) {
+	public boolean addUsuario(String nome, String login, EsperienciaUsuario experiencia) {
 
 		try {
 			return controladorLoja.addUsuario(nome, login, experiencia);

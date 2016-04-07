@@ -44,7 +44,7 @@ public class UsuarioNoob implements TipoUsuarioIF{
 	 * Esse metodo sobrescreve o metodo comprar da interface TipoUsuarioIF (chamada polimorfica)
 	 */
 	@Override
-	public double comprar(Jogo jogo) throws ObjetoinvalidoException{
+	public double Desconto(Jogo jogo) throws ObjetoinvalidoException{
 
 		ExcecoesP2cg.verificaJogo(jogo);
 

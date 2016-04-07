@@ -52,7 +52,6 @@ public class UsuarioTest {
 			assertTrue(usuario.compraJogo(crossfire));
 			assertTrue(usuario.compraJogo(pointBlack));
 			assertTrue(usuario.compraJogo(superMario));
-
 		} catch (SteamException e) {
 			fail(); //nao deve gerar exception
 		}
@@ -110,7 +109,7 @@ public class UsuarioTest {
 
 
 	@Test
-	public void testAdicionaDinrheiro() {
+	public void testAdicionaDinheiro() {
 		try {
 
 			usuario.adicionaDinheiro(1000.55);
@@ -130,42 +129,87 @@ public class UsuarioTest {
 	}
 	
 	@Test
-	public void testRegistraJogada() {
+	public void testRecompensar() {
 		try {
 			usuario.adicionaDinheiro(1000.00);
-			Jogo crossfire = new Luta("Crossfire", 100.99);
-			Jogo pointBlack = new Plataforma("PointBlack", 200.85);
-			Jogo superMario = new Rpg("Super Mario", 150.55);
+			Jogo crossfire = new Luta("Crossfire", 100.99, jogabilidades);
+			Jogo pointBlack = new Plataforma("PointBlack", 200.85, jogabilidades);
+			Jogo superMario = new Rpg("Super Mario", 150.55, jogabilidades);
 
 			assertTrue(usuario.compraJogo(crossfire));
 			assertTrue(usuario.compraJogo(pointBlack));
 			assertTrue(usuario.compraJogo(superMario));
+			assertEquals(6279, usuario.getXp2());
 
-			usuario.registraJogada("Crossfire", 1000, true);
-			usuario.registraJogada("Super Mario", 1000, true);
-			usuario.registraJogada("PointBlack", 1000, true);
+			usuario.recompensar("Crossfire", 1000, true);
+			usuario.recompensar("Super Mario", 1000, true);
+			usuario.recompensar("PointBlack", 1000, true);
 
-			assertEquals(4531, usuario.getXp2());
+			assertEquals(6400, usuario.getXp2());
 		} catch (SteamException e) {
 			fail(); //nao deve gerar exception
 		}
 
 		try {			
-			usuario.registraJogada("", 1000, true);
+			usuario.recompensar("", 1000, true);
 			fail(); //deve gerar uma exception
 		} catch (SteamException e) {
 			assertEquals("Nome nao pode ser nulo ou vazio", e.getMessage());
 		}
 
 		try {			
-			usuario.registraJogada(null, 1000, true);
+			usuario.recompensar(null, 1000, true);
 			fail(); //deve gerar uma exception
 		} catch (SteamException e) {
 			assertEquals("Nome nao pode ser nulo ou vazio", e.getMessage());
 		}
 
 		try {			
-			usuario.registraJogada("PointBlack", -1000, true);
+			usuario.recompensar("PointBlack", -1000, true);
+			fail(); //deve gerar uma exception
+		} catch (SteamException e) {
+			assertEquals("Score nao pode ser negativo", e.getMessage());
+		}
+	}
+	
+	@Test
+	public void testPunir() {
+		try {
+			usuario.adicionaDinheiro(1000.00);
+			Jogo crossfire = new Luta("Crossfire", 100.99, jogabilidades);
+			Jogo pointBlack = new Plataforma("PointBlack", 200.85, jogabilidades);
+			Jogo superMario = new Rpg("Super Mario", 150.55, jogabilidades);
+
+			assertTrue(usuario.compraJogo(crossfire));
+			assertTrue(usuario.compraJogo(pointBlack));
+			assertTrue(usuario.compraJogo(superMario));
+			assertEquals(6279, usuario.getXp2());
+			
+			usuario.punir("Crossfire", 1000, true);
+			usuario.punir("Super Mario", 1000, true);
+			usuario.punir("PointBlack", 1000, true);
+
+			assertEquals(6190, usuario.getXp2());
+		} catch (SteamException e) {
+			fail(); //nao deve gerar exception
+		}
+
+		try {			
+			usuario.punir("", 1000, true);
+			fail(); //deve gerar uma exception
+		} catch (SteamException e) {
+			assertEquals("Nome nao pode ser nulo ou vazio", e.getMessage());
+		}
+
+		try {			
+			usuario.punir(null, 1000, true);
+			fail(); //deve gerar uma exception
+		} catch (SteamException e) {
+			assertEquals("Nome nao pode ser nulo ou vazio", e.getMessage());
+		}
+
+		try {			
+			usuario.punir("PointBlack", -1000, true);
 			fail(); //deve gerar uma exception
 		} catch (SteamException e) {
 			assertEquals("Score nao pode ser negativo", e.getMessage());
@@ -213,10 +257,10 @@ public class UsuarioTest {
 	public void testEqualsObject() {
 		try {
 			Usuario luiz = new Usuario("Luiz", "luiz.silva");
-			Usuario Lucas = new Usuario("Luiz", "luiz.silva");
+			Usuario maiza = new Usuario("Maiza", "maiza.leal");
 			
 			assertTrue(usuario.equals(luiz));
-			assertFalse(usuario.equals(Lucas));
+			assertFalse(usuario.equals(maiza));
 		} catch (DadosInvalidosException e) {
 			fail(); // nao deve gerar exception
 		}
@@ -228,22 +272,45 @@ public class UsuarioTest {
 		try {
 		
 			usuario.adicionaDinheiro(300.00);
-			Jogo metalGear = new Luta("Metal Gear", 200.85, jogabilidades);
+			Jogo metalGear = new Luta("Metal Gear", 99.85, jogabilidades);
 			usuario.compraJogo(metalGear);
 			
-			usuario.registraJogada("Metal Gear", 1000, true);
+			usuario.recompensar("Metal Gear", 1000, true);
 		} catch (SteamException e) {
 			fail(); //nao deve gerar exception
 		}
-		String comparador = "luiz.silva" + FIM_DE_LINHA
-				+ "Luiz - Jogador Noob" + FIM_DE_LINHA
+		
+		String comparador = "Jogador Veterano: luiz.silva" + FIM_DE_LINHA
+				+ "Luiz - 1009 x2p" + FIM_DE_LINHA
 				+ "Lista de jogos:" + FIM_DE_LINHA
 				+ "+ Metal Gear - LUTA:" + FIM_DE_LINHA
 				+ "==> Jogou 1 vez(es)" + FIM_DE_LINHA
 				+ "==> Zerou 1 vez(es)" + FIM_DE_LINHA
 				+ "==> Maior Score: 1000" + FIM_DE_LINHA + FIM_DE_LINHA
-				+ "Total de preco dos jogos: R$ 200,85" + FIM_DE_LINHA;
+				+ "Total de preco dos jogos: R$ 99,85" + FIM_DE_LINHA + FIM_DE_LINHA
+				+ "--------------------------------------------------------------------" 
+				+ FIM_DE_LINHA;
 		
 		assertEquals(comparador, usuario.toString());
+		
+		try {
+			
+			usuario.punir("Metal Gear", 3000, true);
+		} catch (SteamException e) {
+			fail(); //nao deve gerar exception
+		}
+		
+		String comparador2 = "Jogador Noob: luiz.silva" + FIM_DE_LINHA
+				+ "Luiz - 972 x2p" + FIM_DE_LINHA
+				+ "Lista de jogos:" + FIM_DE_LINHA
+				+ "+ Metal Gear - LUTA:" + FIM_DE_LINHA
+				+ "==> Jogou 2 vez(es)" + FIM_DE_LINHA
+				+ "==> Zerou 2 vez(es)" + FIM_DE_LINHA
+				+ "==> Maior Score: 3000" + FIM_DE_LINHA + FIM_DE_LINHA
+				+ "Total de preco dos jogos: R$ 99,85" + FIM_DE_LINHA + FIM_DE_LINHA
+				+ "--------------------------------------------------------------------" 
+				+ FIM_DE_LINHA;
+		
+		assertEquals(comparador2, usuario.toString());
 	}
 }

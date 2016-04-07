@@ -85,6 +85,17 @@ public class JogoLutaTest {
 		}catch (Exception e) {
 			fail();
 		}
+		
+		try {
+			Luta jogoLuta = new Luta("Metal Gear", 200.00, null);
+			fail();
+			
+		} catch(SteamException exception){
+			assertEquals("Jogabilidade nao pode ser nula", exception.getMessage());
+			
+		}catch (Exception e) {
+			fail();
+		}
 	}
 	
 	@Test

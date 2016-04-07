@@ -8,6 +8,7 @@ import static org.junit.Assert.fail;
 import java.util.ArrayList;
 import java.util.List;
 
+import jogos.Luta;
 import jogos.Rpg;
 
 import org.junit.Before;
@@ -81,6 +82,17 @@ public class JogoRpgTest {
 		}catch (DadosInvalidosException exception){
 			assertEquals("Preco nao pode ser negativo", exception.getMessage());
 
+		}catch (Exception e) {
+			fail();
+		}
+		
+		try {
+			Luta jogoLuta = new Luta("Metal Gear", 200.00, null);
+			fail();
+			
+		} catch(SteamException exception){
+			assertEquals("Jogabilidade nao pode ser nula", exception.getMessage());
+			
 		}catch (Exception e) {
 			fail();
 		}

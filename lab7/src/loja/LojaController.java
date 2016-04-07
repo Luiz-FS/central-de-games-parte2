@@ -4,7 +4,7 @@ package loja;
 import java.util.List;
 
 import banco.dados.BancoUsuarios;
-import enumerations.ExperienciaUsuario;
+import enumerations.EsperienciaUsuario;
 import enumerations.Jogabilidade;
 import enumerations.TipoDeJogo;
 import exceptions.DadosInvalidosException;
@@ -44,7 +44,7 @@ public class LojaController {
 	 * @param experiencia recebe a experiencia do usuario
 	 * @return - retorna um boolean indicando se o usuario foi adicionado ou nao
 	 */
-	public boolean addUsuario(String nome, String login, ExperienciaUsuario experiencia)throws SteamException{
+	public boolean addUsuario(String nome, String login, EsperienciaUsuario experiencia)throws SteamException{
 		Usuario usuario = criaUsuario(nome, login, experiencia);
 
 		return bancoUsuarios.adicionaUsuario(usuario);
@@ -59,7 +59,7 @@ public class LojaController {
 	 * @return - retorna o usuario criado
 	 * @throws SteamException - gera um exception caso as entradas sejam invalidas
 	 */
-	private Usuario criaUsuario(String nomeUsuario, String loginUsuario, ExperienciaUsuario experiencia)throws SteamException{
+	private Usuario criaUsuario(String nomeUsuario, String loginUsuario, EsperienciaUsuario experiencia)throws SteamException{
 		return fabricaUsuario.criaUsuario(nomeUsuario, loginUsuario, experiencia);
 	}
 

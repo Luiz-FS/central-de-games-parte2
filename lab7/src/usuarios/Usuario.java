@@ -57,7 +57,7 @@ public class Usuario {
 
 		if(! jogos.containJogo(jogo)){
 
-			double precoJogo = tipoUsuario.comprar(jogo);
+			double precoJogo = tipoUsuario.Desconto(jogo);
 			ExcecoesP2cg.verificaCompra(this.quantDinheiro, precoJogo);
 
 			retiraDinheiro(precoJogo);
@@ -65,6 +65,8 @@ public class Usuario {
 			aumentaXp2(xp2);
 
 			jogos.adicionaJogo(jogo);
+			
+			statusUsuario();
 			return true;
 
 		}else{
@@ -217,8 +219,8 @@ public class Usuario {
 	 */
 	private boolean upgrade(){
 
-		if(ExcecoesP2cg.verificaUsuarioVeterano(tipoUsuario)){
-
+		if(! ExcecoesP2cg.verificaUsuarioVeterano(tipoUsuario)){
+		
 			tipoUsuario = new UsuarioVeterano();
 			return true;
 
@@ -234,7 +236,7 @@ public class Usuario {
 	 */
 	private boolean downgrade(){
 
-		if(ExcecoesP2cg.verificaUsuarioNoob(this.tipoUsuario)){
+		if(! ExcecoesP2cg.verificaUsuarioNoob(this.tipoUsuario)){
 
 			tipoUsuario = new UsuarioNoob();
 			return true;

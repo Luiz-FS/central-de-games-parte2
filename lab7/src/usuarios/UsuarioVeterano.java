@@ -42,7 +42,7 @@ public class UsuarioVeterano implements TipoUsuarioIF{
 	 * Esse metodo sobrescreve o metodo comprar da interface TipoUsuarioIF (chamada polimorfica)
 	 */
 	@Override
-	public double comprar(Jogo jogo) throws ObjetoinvalidoException{
+	public double Desconto(Jogo jogo) throws ObjetoinvalidoException{
 
 		ExcecoesP2cg.verificaJogo(jogo);
 
@@ -56,9 +56,8 @@ public class UsuarioVeterano implements TipoUsuarioIF{
 	@Override
 	public int calculaXp2Compra(double precoJogo) throws NumeroInvalidoException{
 		
-		int pontosxp2Noob = XP2_EXTRA;
-		int xp2Recebido = (int) (precoJogo * pontosxp2Noob);
-		
+		int pontosxp2Veterano = XP2_EXTRA;
+		int xp2Recebido = (int) (precoJogo * pontosxp2Veterano);
 		return xp2Recebido;
 	}
 

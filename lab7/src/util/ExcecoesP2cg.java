@@ -3,7 +3,7 @@ package util;
 
 import java.util.List;
 
-import enumerations.ExperienciaUsuario;
+import enumerations.EsperienciaUsuario;
 import enumerations.Jogabilidade;
 import exceptions.ConstanteException;
 import exceptions.LogicaException;
@@ -210,7 +210,7 @@ public class ExcecoesP2cg {
 	 * @param experiencia - recebe a experiencia
 	 * @throws ConstanteException - gera uma exception caso a experiencia seja nula
 	 */
-	public static void verificaExperiencia(ExperienciaUsuario experiencia)throws ConstanteException{
+	public static void verificaExperiencia(EsperienciaUsuario experiencia)throws ConstanteException{
 		if(experiencia == null){
 			throw new ConstanteException("Exsperiencia nao existe");
 		}

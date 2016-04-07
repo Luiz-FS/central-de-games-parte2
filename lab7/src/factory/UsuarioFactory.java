@@ -1,7 +1,7 @@
 /* 115111424 - LUIZ FERNANDO DA SILVA: LAB 7 - Turma 3 */
 package factory;
 
-import enumerations.ExperienciaUsuario;
+import enumerations.EsperienciaUsuario;
 import exceptions.ConstanteException;
 import exceptions.SteamException;
 import exceptions.StringException;
@@ -19,7 +19,7 @@ public class UsuarioFactory {
 	 * @return retorna o usuario criado
 	 * @throws SteamException - gera uma exception caso as entradas sejam invalidas
 	 */
-	public Usuario criaUsuario(String nomeUsuario, String loginUsuario, ExperienciaUsuario experiencia)throws SteamException{
+	public Usuario criaUsuario(String nomeUsuario, String loginUsuario, EsperienciaUsuario experiencia)throws SteamException{
 
 		ExcecoesP2cg.verificaExperiencia(experiencia);
 
