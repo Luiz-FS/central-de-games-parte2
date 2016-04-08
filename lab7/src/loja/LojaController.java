@@ -44,7 +44,7 @@ public class LojaController {
 	 * @param experiencia recebe a experiencia do usuario
 	 * @return - retorna um boolean indicando se o usuario foi adicionado ou nao
 	 */
-	public boolean addUsuario(String nome, String login, EsperienciaUsuario experiencia)throws SteamException{
+	public boolean adicionaUsuario(String nome, String login, EsperienciaUsuario experiencia)throws SteamException{
 		Usuario usuario = criaUsuario(nome, login, experiencia);
 
 		return bancoUsuarios.adicionaUsuario(usuario);
@@ -72,11 +72,11 @@ public class LojaController {
 	 * @return - retorna um boolean informando se a operacao foi efetuada com sucesso
 	 * @throws SteamException - gera uma exception caso as entradas seja invalidas
 	 */
-	public boolean addDinheioUsuario(String login,double quantDinheiro)throws SteamException{
+	public boolean adicionaDinheioUsuario(String login,double quantDinheiro)throws SteamException{
 
 		if(containUsuario(login)){
 
-			Usuario usuario = bancoUsuarios.getUsuario(login);
+			Usuario usuario = bancoUsuarios.pegaUsuario(login);
 			usuario.adicionaDinheiro(quantDinheiro);
 			return true;
 
@@ -125,7 +125,7 @@ public class LojaController {
 	public boolean recompensarUsuario(String login, String nomeJogo, int score, boolean zerou)throws SteamException{
 
 		if(containUsuario(login)){
-			Usuario usuario = bancoUsuarios.getUsuario(login);
+			Usuario usuario = bancoUsuarios.pegaUsuario(login);
 
 			return usuario.recompensar(nomeJogo, score, zerou);
 
@@ -148,7 +148,7 @@ public class LojaController {
 	public boolean punirUsuario(String login, String nomeJogo, int score, boolean zerou)throws SteamException{
 		
 		if(containUsuario(login)){
-			Usuario usuario = bancoUsuarios.getUsuario(login);
+			Usuario usuario = bancoUsuarios.pegaUsuario(login);
 
 			return usuario.punir(nomeJogo, score, zerou);
 
@@ -173,7 +173,7 @@ public class LojaController {
 
 		if(containUsuario(login)){
 
-			Usuario usuario = bancoUsuarios.getUsuario(login);
+			Usuario usuario = bancoUsuarios.pegaUsuario(login);
 
 			Jogo novoJogo = criaJogo(nomeJogo, preco, tipoJogo, jogabilidades);
 			return usuario.compraJogo(novoJogo);
@@ -192,14 +192,16 @@ public class LojaController {
 
 		if(bancoUsuarios.containUsuario(loginUsuario)){
 
-			Usuario usuario = bancoUsuarios.getUsuario(loginUsuario);
+			Usuario usuario = bancoUsuarios.pegaUsuario(loginUsuario);
 			return usuario.containJogo(nomeJogo);
 		}
 		return false;
 	}
 
 	/**
-	 * Metodo infoUsuarios que retorna a lista de usuarios da loja (chamada polimorfica)
+	 * Metodo infoUsuarios que retorna a lista de usuarios da loja
+	 * 
+	 * @return - retorna uma String contendo as informacoes dos usuarios
 	 */
 	public String infoUsuarios(){
 		final String FIM_DE_LINHA = System.lineSeparator();

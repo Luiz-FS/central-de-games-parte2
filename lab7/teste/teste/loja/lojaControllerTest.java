@@ -35,12 +35,12 @@ public class lojaControllerTest {
 	}
 
 	@Test
-	public void testAddUsuario() {
+	public void testAdicionaUsuario() {
 
 		try{
-			assertTrue(centralP2.addUsuario("Luiz", "luiz.silva", EsperienciaUsuario.NOOB));
-			assertTrue(centralP2.addUsuario("Maiza", "maiza.leal", EsperienciaUsuario.NOOB));
-			assertFalse(centralP2.addUsuario("Luiz", "luiz.silva", EsperienciaUsuario.NOOB));
+			assertTrue(centralP2.adicionaUsuario("Luiz", "luiz.silva", EsperienciaUsuario.NOOB));
+			assertTrue(centralP2.adicionaUsuario("Maiza", "maiza.leal", EsperienciaUsuario.NOOB));
+			assertFalse(centralP2.adicionaUsuario("Luiz", "luiz.silva", EsperienciaUsuario.NOOB));
 
 		}catch(SteamException e){
 			fail(); // nao deve gerar exception
@@ -49,10 +49,10 @@ public class lojaControllerTest {
 
 
 	@Test
-	public void testAddDinheioUsuario() {
+	public void testAdicionaDinheioUsuario() {
 		try{
-			assertTrue(centralP2.addUsuario("Luiz", "luiz.silva", EsperienciaUsuario.NOOB));
-			assertTrue(centralP2.addDinheioUsuario("luiz.silva", 1000.55));
+			assertTrue(centralP2.adicionaUsuario("Luiz", "luiz.silva", EsperienciaUsuario.NOOB));
+			assertTrue(centralP2.adicionaDinheioUsuario("luiz.silva", 1000.55));
 
 		}catch(SteamException e){
 			fail(); //nao deve gerar excpetion
@@ -63,7 +63,7 @@ public class lojaControllerTest {
 	public void testContainUsuario() {
 
 		try{
-			assertTrue(centralP2.addUsuario("Luiz", "luiz.silva", EsperienciaUsuario.NOOB));
+			assertTrue(centralP2.adicionaUsuario("Luiz", "luiz.silva", EsperienciaUsuario.NOOB));
 			assertTrue(centralP2.containUsuario("luiz.silva"));
 			assertFalse(centralP2.containUsuario("maiza.leal"));
 
@@ -76,8 +76,8 @@ public class lojaControllerTest {
 	public void testRecompensarUsuario() {
 
 		try{
-			assertTrue(centralP2.addUsuario("Luiz", "luiz.silva", EsperienciaUsuario.NOOB));
-			assertTrue(centralP2.addDinheioUsuario("luiz.silva", 1000.55));
+			assertTrue(centralP2.adicionaUsuario("Luiz", "luiz.silva", EsperienciaUsuario.NOOB));
+			assertTrue(centralP2.adicionaDinheioUsuario("luiz.silva", 1000.55));
 			assertTrue(centralP2.venderJogo("luiz.silva", "Metal Gear", 100.55,TipoDeJogo.LUTA, jogabilidades));
 
 			assertTrue(centralP2.recompensarUsuario("luiz.silva", "Metal Gear", 20000, true));
@@ -92,8 +92,8 @@ public class lojaControllerTest {
 	public void testPunirUsuario() {
 
 		try{
-			assertTrue(centralP2.addUsuario("Luiz", "luiz.silva", EsperienciaUsuario.NOOB));
-			assertTrue(centralP2.addDinheioUsuario("luiz.silva", 1000.55));
+			assertTrue(centralP2.adicionaUsuario("Luiz", "luiz.silva", EsperienciaUsuario.NOOB));
+			assertTrue(centralP2.adicionaDinheioUsuario("luiz.silva", 1000.55));
 			assertTrue(centralP2.venderJogo("luiz.silva", "Metal Gear", 100.55,TipoDeJogo.LUTA, jogabilidades));
 
 			assertTrue(centralP2.punirUsuario("luiz.silva", "Metal Gear", 20000, true));
@@ -107,9 +107,9 @@ public class lojaControllerTest {
 	@Test
 	public void testVenderJogo() {
 		try{
-			assertTrue(centralP2.addUsuario("Luiz", "luiz.silva", EsperienciaUsuario.NOOB));
+			assertTrue(centralP2.adicionaUsuario("Luiz", "luiz.silva", EsperienciaUsuario.NOOB));
 
-			assertTrue(centralP2.addDinheioUsuario("luiz.silva", 1000000.55));
+			assertTrue(centralP2.adicionaDinheioUsuario("luiz.silva", 1000000.55));
 
 			assertTrue(centralP2.venderJogo("luiz.silva", "Metal Gear", 1000.55, TipoDeJogo.LUTA, jogabilidades));
 			assertTrue(centralP2.venderJogo("luiz.silva", "PointBlack", 1000.55, TipoDeJogo.LUTA, jogabilidades));
@@ -122,9 +122,9 @@ public class lojaControllerTest {
 	@Test
 	public void testUsucarioContainsJogo() {
 		try{
-			assertTrue(centralP2.addUsuario("Luiz", "luiz.silva", EsperienciaUsuario.NOOB));
+			assertTrue(centralP2.adicionaUsuario("Luiz", "luiz.silva", EsperienciaUsuario.NOOB));
 
-			assertTrue(centralP2.addDinheioUsuario("luiz.silva", 1000000.55));
+			assertTrue(centralP2.adicionaDinheioUsuario("luiz.silva", 1000000.55));
 
 			assertTrue(centralP2.venderJogo("luiz.silva", "Metal Gear", 1000.55, TipoDeJogo.LUTA, jogabilidades));
 			assertTrue(centralP2.venderJogo("luiz.silva", "PointBlack", 1000.55, TipoDeJogo.LUTA, jogabilidades));
@@ -142,16 +142,16 @@ public class lojaControllerTest {
 	public void testEquals(){
 		
 		try{
-		assertTrue(centralP2.addUsuario("Luiz", "luiz.silva", EsperienciaUsuario.NOOB));
-		assertTrue(centralP2.addUsuario("Maiza", "maiza.leal", EsperienciaUsuario.NOOB));
+		assertTrue(centralP2.adicionaUsuario("Luiz", "luiz.silva", EsperienciaUsuario.NOOB));
+		assertTrue(centralP2.adicionaUsuario("Maiza", "maiza.leal", EsperienciaUsuario.NOOB));
 
 		LojaController outraLoja = new LojaController();
-		assertTrue(outraLoja.addUsuario("Luiz", "luiz.silva", EsperienciaUsuario.NOOB));
-		assertTrue(outraLoja.addUsuario("Maiza", "maiza.leal", EsperienciaUsuario.NOOB));
+		assertTrue(outraLoja.adicionaUsuario("Luiz", "luiz.silva", EsperienciaUsuario.NOOB));
+		assertTrue(outraLoja.adicionaUsuario("Maiza", "maiza.leal", EsperienciaUsuario.NOOB));
 
 		LojaController terceiraLoja = new LojaController();
-		assertTrue(terceiraLoja.addUsuario("Lucas", "lucas.silva", EsperienciaUsuario.NOOB));
-		assertTrue(terceiraLoja.addUsuario("Maiza", "maiza.leal", EsperienciaUsuario.NOOB));
+		assertTrue(terceiraLoja.adicionaUsuario("Lucas", "lucas.silva", EsperienciaUsuario.NOOB));
+		assertTrue(terceiraLoja.adicionaUsuario("Maiza", "maiza.leal", EsperienciaUsuario.NOOB));
 
 		assertTrue(centralP2.equals(outraLoja));
 		assertFalse(centralP2.equals(terceiraLoja));
@@ -164,8 +164,8 @@ public class lojaControllerTest {
 	@Test
 	public void testInfoUsuario() {
 		try{
-		centralP2.addUsuario("Luiz", "luiz.silva", EsperienciaUsuario.NOOB);
-		centralP2.addDinheioUsuario("luiz.silva", 1000.55);
+		centralP2.adicionaUsuario("Luiz", "luiz.silva", EsperienciaUsuario.NOOB);
+		centralP2.adicionaDinheioUsuario("luiz.silva", 1000.55);
 		centralP2.venderJogo("luiz.silva", "Metal Gear", 200.85, TipoDeJogo.LUTA, jogabilidades);
 		centralP2.recompensarUsuario("luiz.silva", "Metal Gear", 1000, true);
 		
@@ -185,7 +185,6 @@ public class lojaControllerTest {
 							+"Total de preco dos jogos: R$ 200,85" + FIM_DE_LINHA + FIM_DE_LINHA
 							+ "--------------------------------------------------------------------" + FIM_DE_LINHA;
 		
-		System.out.println(centralP2.infoUsuarios());
 		assertEquals(comparador, centralP2.infoUsuarios());
 
 	}

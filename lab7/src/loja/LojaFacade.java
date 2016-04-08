@@ -33,10 +33,10 @@ public class LojaFacade {
 	 * @param experiencia - recebe a experiencia do usuario
 	 * @return - retorna um boolean indicando se o usuario foi adicionado ou nao
 	 */
-	public boolean addUsuario(String nome, String login, EsperienciaUsuario experiencia) {
+	public boolean adicionaUsuario(String nome, String login, EsperienciaUsuario experiencia) {
 
 		try {
-			return controladorLoja.addUsuario(nome, login, experiencia);
+			return controladorLoja.adicionaUsuario(nome, login, experiencia);
 
 		} catch (SteamException e) {
 			return false;
@@ -50,10 +50,10 @@ public class LojaFacade {
 	 * @param quantDinheiro - recebe a quantidade de dinheiro a ser adicionada
 	 * @return retorna um boolean indicando se a operacao foi feita com sucesso
 	 */
-	public boolean addDinheioUsuario(String login, double quantDinheiro) {
+	public boolean adicionaDinheioUsuario(String login, double quantDinheiro) {
 
 		try {
-			return controladorLoja.addDinheioUsuario(login, quantDinheiro);
+			return controladorLoja.adicionaDinheioUsuario(login, quantDinheiro);
 
 		} catch (SteamException e) {
 			return false;
@@ -152,5 +152,15 @@ public class LojaFacade {
 		}
 	}
 
+	/**
+	 * Esse metodo mostra todas as infomacoes de todos os usuarios
+	 * 
+	 * @return - retorna uma String contendo as informacoes
+	 */
+	public String infoUsuarios() {
+		return controladorLoja.infoUsuarios();
+	}
+	
+	
 
 }

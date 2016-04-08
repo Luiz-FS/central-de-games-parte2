@@ -61,6 +61,7 @@ public class UsuarioTest {
 		try {
 
 			usuario.compraJogo(null);
+			fail();
 		} catch (SteamException e) {
 			assertEquals("Jogo nao pode ser nulo",e.getMessage());
 		}

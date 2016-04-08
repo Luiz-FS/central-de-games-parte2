@@ -76,7 +76,7 @@ public class BancoUsuarios {
 	 * @return - retorna o usario caso exista
 	 * @throws SteamException - gera uma exception caso o usuario nao exista
 	 */
-	public Usuario getUsuario(String loginUsuario)throws SteamException{
+	public Usuario pegaUsuario(String loginUsuario)throws SteamException{
 		
 		if(containUsuario(loginUsuario)){
 			return usuarios.get(loginUsuario);

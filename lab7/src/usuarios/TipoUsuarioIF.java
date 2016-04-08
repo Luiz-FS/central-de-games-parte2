@@ -19,7 +19,7 @@ public interface TipoUsuarioIF {
 	 * @return retorna um double indicando o valor do desconto do jogo
 	 * @throws ObjetoinvalidoException - gera umas exception caso a entrada seja invalida
 	 */
-	public double desconto(Jogo jogo) throws ObjetoinvalidoException;
+	public double desconto(double precoJogo) throws NumeroInvalidoException;
 	
 	/**
 	 * Esse eh um metodo abstrato de recompensar o usuario

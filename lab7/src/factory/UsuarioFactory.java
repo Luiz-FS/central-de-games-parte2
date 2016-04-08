@@ -21,7 +21,7 @@ public class UsuarioFactory {
 	 */
 	public Usuario criaUsuario(String nomeUsuario, String loginUsuario, EsperienciaUsuario experiencia)throws SteamException{
 
-		ExcecoesP2cg.verificaExperiencia(experiencia);
+		ExcecoesP2cg.verificaEsperiencia(experiencia);
 
 		switch(experiencia){
 

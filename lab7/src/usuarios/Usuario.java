@@ -55,9 +55,11 @@ public class Usuario {
 	 */
 	public boolean compraJogo(Jogo jogo)throws SteamException{
 
+		ExcecoesP2cg.verificaJogo(jogo);
+		
 		if(! jogos.containJogo(jogo)){
 
-			double precoJogo = tipoUsuario.desconto(jogo);
+			double precoJogo = tipoUsuario.desconto(jogo.getPreco());
 			ExcecoesP2cg.verificaCompra(this.quantDinheiro, precoJogo);
 
 			retiraDinheiro(precoJogo);
@@ -72,6 +74,15 @@ public class Usuario {
 		}else{
 			return false;
 		}
+	}
+
+	/**
+	 * Esse metodo calcula o total de preco dos jogos comprados pelo usuario
+	 * 
+	 * @return - retorna um double indicando o total de preco dos jogos
+	 */
+	public double calculaTotalPrecoJogos(){
+		return jogos.totalPrecoJogos();
 	}
 
 	/**
@@ -95,6 +106,61 @@ public class Usuario {
 	 */
 	public boolean containJogo(String nomeJogo){
 		return jogos.containJogo(nomeJogo);
+	}
+
+	/**
+	 * Esse metodo puni o usuario por uma jogada
+	 * 
+	 * @param nomeJogo - recebe o nome do jogo
+	 * @param score - recebe o score atinjido
+	 * @param zerou - recebe um boolean indicando se o jogo foi zerado ou nao
+	 * @return - retorna um boolean indicando se a operacao foi realizada com sucesso
+	 * @throws SteamException - gera uma exception caso as entradas sejam invalidas
+	 */
+	public boolean punir(String nomeJogo, int score, boolean zerou)throws SteamException{
+		ExcecoesP2cg.verificaNome(nomeJogo);
+		ExcecoesP2cg.verificaScore(score);
+	
+		if(containJogo(nomeJogo)){
+	
+			Jogo jogo = jogos.pegaJogo(nomeJogo);
+	
+			aumentaXp2(jogo.registraJogada(score, zerou));
+			
+			int xp2 = tipoUsuario.punir(jogo);
+	
+			reduzXp2(xp2);
+	
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Esse metodo recompensa o usuario por uma jogada
+	 * 
+	 * @param nomeJogo - recebe o nome do jogo
+	 * @param score - recebe o score atinjido
+	 * @param zerou - recebe um boolean indicando se o jogo foi zerado ou nao
+	 * @return - retorna um boolean indicando se a operacao foi realizada com sucesso
+	 * @throws SteamException - gera uma exception caso as entradas sejam invalidas
+	 */
+	public boolean recompensar(String nomeJogo, int score, boolean zerou)throws SteamException{
+		ExcecoesP2cg.verificaNome(nomeJogo);
+		ExcecoesP2cg.verificaScore(score);
+	
+		if(containJogo(nomeJogo)){
+	
+			Jogo jogo = jogos.pegaJogo(nomeJogo);
+	
+			int xp2 = jogo.registraJogada(score, zerou);
+			xp2 += tipoUsuario.recompensar(jogo);
+	
+			aumentaXp2(xp2);
+	
+			return true;
+		}
+		return false;
 	}
 
 	/**
@@ -134,33 +200,6 @@ public class Usuario {
 	}
 
 	/**
-	 * Esse metodo recompensa o usuario por uma jogada
-	 * 
-	 * @param nomeJogo - recebe o nome do jogo
-	 * @param score - recebe o score atinjido
-	 * @param zerou - recebe um boolean indicando se o jogo foi zerado ou nao
-	 * @return - retorna um boolean indicando se a operacao foi realizada com sucesso
-	 * @throws SteamException - gera uma exception caso as entradas sejam invalidas
-	 */
-	public boolean recompensar(String nomeJogo, int score, boolean zerou)throws SteamException{
-		ExcecoesP2cg.verificaNome(nomeJogo);
-		ExcecoesP2cg.verificaScore(score);
-
-		if(containJogo(nomeJogo)){
-
-			Jogo jogo = jogos.pegaJogo(nomeJogo);
-
-			int xp2 = jogo.registraJogada(score, zerou);
-			xp2 += tipoUsuario.recompensar(jogo);
-
-			aumentaXp2(xp2);
-
-			return true;
-		}
-		return false;
-	}
-
-	/**
 	 * Esse metodo verifica o status do usuario
 	 * caso possua xp2 suficiente sera feito um upgrade
 	 * caso contrario sera feito um downgrade
@@ -173,43 +212,6 @@ public class Usuario {
 		if(this.xp2 < LIMITE_UP_DOWN){
 			downgrade();
 		}
-	}
-
-	/**
-	 * Esse metodo puni o usuario por uma jogada
-	 * 
-	 * @param nomeJogo - recebe o nome do jogo
-	 * @param score - recebe o score atinjido
-	 * @param zerou - recebe um boolean indicando se o jogo foi zerado ou nao
-	 * @return - retorna um boolean indicando se a operacao foi realizada com sucesso
-	 * @throws SteamException - gera uma exception caso as entradas sejam invalidas
-	 */
-	public boolean punir(String nomeJogo, int score, boolean zerou)throws SteamException{
-		ExcecoesP2cg.verificaNome(nomeJogo);
-		ExcecoesP2cg.verificaScore(score);
-
-		if(containJogo(nomeJogo)){
-
-			Jogo jogo = jogos.pegaJogo(nomeJogo);
-
-			aumentaXp2(jogo.registraJogada(score, zerou));
-			
-			int xp2 = tipoUsuario.punir(jogo);
-
-			reduzXp2(xp2);
-
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * Esse metodo calcula o total de preco dos jogos comprados pelo usuario
-	 * 
-	 * @return - retorna um double indicando o total de preco dos jogos
-	 */
-	public double calculaTotalPrecoJogos(){
-		return jogos.totalPrecoJogos();
 	}
 
 	/**

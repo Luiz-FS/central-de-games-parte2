@@ -27,11 +27,11 @@ public class UsuarioVeterano implements TipoUsuarioIF{
 	 * Esse metodo sobrescreve o metodo comprar da interface TipoUsuarioIF (chamada polimorfica)
 	 */
 	@Override
-	public double desconto(Jogo jogo) throws ObjetoinvalidoException{
+	public double desconto(double precoJogo) throws NumeroInvalidoException{
 
-		ExcecoesP2cg.verificaJogo(jogo);
+		ExcecoesP2cg.verificaDinheiro(precoJogo);
 
-		return calculaDesconto(jogo);
+		return calculaDesconto(precoJogo);
 	}
 	
 	/**
@@ -78,10 +78,10 @@ public class UsuarioVeterano implements TipoUsuarioIF{
 	 * @param jogo - recebe o jogo que sera comprado
 	 * @return - retorna o desconto do jogo
 	 */
-	private double calculaDesconto(Jogo jogo){
+	private double calculaDesconto(double precoJogo){
 		double porcentdesconto = DESCONTO;
 
-		double desconto = jogo.getPreco() * porcentdesconto;
+		double desconto = precoJogo * porcentdesconto;
 		return desconto;
 	}
 	

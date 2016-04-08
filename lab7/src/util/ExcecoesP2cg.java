@@ -207,11 +207,11 @@ public class ExcecoesP2cg {
 	/**
 	 * Esse metodo verifica se a experiencia passada eh valida
 	 * 
-	 * @param experiencia - recebe a experiencia
+	 * @param esperiencia - recebe a experiencia
 	 * @throws ConstanteException - gera uma exception caso a experiencia seja nula
 	 */
-	public static void verificaExperiencia(EsperienciaUsuario experiencia)throws ConstanteException{
-		if(experiencia == null){
+	public static void verificaEsperiencia(EsperienciaUsuario esperiencia)throws ConstanteException{
+		if(esperiencia == null){
 			throw new ConstanteException("Exsperiencia nao existe");
 		}
 	}
